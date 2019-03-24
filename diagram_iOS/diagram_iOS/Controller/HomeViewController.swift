@@ -54,9 +54,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     var jsonData : Data?
     static var uniqueProcessID = 0
     
-
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureScrollView()
@@ -115,19 +112,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         // Do any additional setup after loading the view
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     // MARK: - Handlers
-    
     
     // To add the left bar button to bring up the Menu
     func configureNavigationBar()
@@ -138,7 +123,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         navigationItem.title = "Excelsior"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "options")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(didClickMenu))
     }
-    
     
     // Creates a drop zone which spans the enitre screen so that drop can be performed anywhere
     func createDropZone()
@@ -186,8 +170,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         
     }
     
-    
-    
+
 //     Handling Drop
 //    1. Type of Object the drop zone can accept
 //    2. Type of drop proposal (copy, move, forbidden, cancel)
@@ -213,15 +196,19 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
                 {
                     shapeName = "rectangle"
                 }
-                else if (img?.isEqual(to: UIImage(named: "triangle")!))!
-                {
-                    shapeName = "triangle"
-                }
                 else if (img?.isEqual(to: UIImage(named: "rhombus")!))!
                 {
                     shapeName = "rhombus"
                 }
-                else if (img?.isEqual(to: UIImage(named: "circle")!))!
+                else if (img?.isEqual(to: UIImage(named: "harddisk")!))!
+                {
+                    shapeName = "harddisk"
+                }
+                else if (img?.isEqual(to: UIImage(named: "database")!))!
+                {
+                    shapeName = "database"
+                }
+                else if (img?.isEqual(to: UIImage(named: "rounded rectangle")!))!
                 {
                     shapeName = "rounded rectangle"
                 }
@@ -328,6 +315,14 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         return self.dropZone!
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // Prevent subviews of a specific view to send touch events to the view's gesture recognizers.
+        if let touchedView = touch.view, let gestureView = gestureRecognizer.view, touchedView.isDescendant(of: gestureView), touchedView !== gestureView {
+            return false
+        }
+        return true
+    }
+    
     
     // MARK:- Gesture Handlers
     @objc func didPan(sender: UIPanGestureRecognizer)
@@ -372,11 +367,13 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     // MARK:- Integration Gesture Handlers
     @objc func circlegesture(_ sender: UITapGestureRecognizer){
         print("print circle")
-        if firstCircle == nil {
+        if firstCircle == nil
+        {
             firstCircle = sender.view as! CircleView?
             firstCircle?.hasConnection = true
             firstCircle?.isHidden = true
-        }else{
+        }
+        else{
             //            draw_line(point1: (firstCircle?.center)!, point2: (sender.view?.center)!)
             secondCircle = sender.view as! CircleView?
             dropZone!.layer.addSublayer((firstCircle?.lineTo(circle: secondCircle!))! )
@@ -470,7 +467,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         print("\(imgPath)")
     }
     
-    
     @objc func save_action(_ sender: UITapGestureRecognizer) {
         let jsonEncoder = JSONEncoder()
         //jsonEncoder.outputFormatting = .prettyPrinted
@@ -493,7 +489,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         print(allData.allViews)
         restoreState()
     }
-    
     
     func restoreState() {
         views.removeAll()
@@ -621,18 +616,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         }
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 extension UIImage {

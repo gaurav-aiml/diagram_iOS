@@ -161,6 +161,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
         textView.backgroundColor = UIColor.clear
         textView.isUserInteractionEnabled = true
         textView.isEditable = true
+        textView.font = UIFont.systemFont(ofSize: 15)
         textView.center = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
         //textView.adjustsFontForContentSizeCategory = true
         textView.textContainer.maximumNumberOfLines = 3

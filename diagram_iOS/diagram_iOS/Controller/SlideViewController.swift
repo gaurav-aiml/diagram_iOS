@@ -12,13 +12,13 @@ class SlideViewController: UIViewController {
     
     let cellId = "cellId"
     private var shapesCreated: Bool = false
-    private let shapes = ["rectangle", "triangle", "circle", "rhombus"]
+    private let shapes = ["rectangle", "rounded rectangle", "database", "rhombus", "harddisk"]
     
     let shapeCollection: UICollectionView =
     {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        collection.backgroundColor = UIColor .lightGray
+        collection.backgroundColor = UIColor .white
         collection.translatesAutoresizingMaskIntoConstraints = false
         return collection
     }()
@@ -77,7 +77,7 @@ extension SlideViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 4
+        return shapes.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -85,12 +85,11 @@ extension SlideViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let cell = shapeCollection.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ShapeCell
         let shape = UIImage(named: shapes[indexPath.row])
         cell.imageView.image = shape
-        cell.imageView.tag = indexPath.row
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 55 , height: 55)
+            return CGSize(width: 120 , height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

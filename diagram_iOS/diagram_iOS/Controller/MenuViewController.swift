@@ -39,7 +39,7 @@ class MenuViewController: UIViewController {
         menuView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         
         menuView.separatorStyle = .none
-        menuView.rowHeight = 80
+        menuView.rowHeight = 90
     }
 }
     /*
@@ -58,11 +58,14 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 5
+        return 6
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let  cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! MenuOptionCell
+        let menuOption = MenuOption(rawValue: indexPath.row)
+        cell.descriptionLabel.text = menuOption?.description
+        cell.menuImage.image = menuOption?.image
         return cell
     }
 }
@@ -79,8 +82,8 @@ class MenuOptionCell: UITableViewCell {
     
     let descriptionLabel : UILabel! = {
         let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 24)
         label.text = "Sample text"
         
         return label
@@ -90,7 +93,7 @@ class MenuOptionCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .darkGray
+        backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
         addSubview(menuImage)
         menuImage.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +101,6 @@ class MenuOptionCell: UITableViewCell {
         menuImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         menuImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
         menuImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        menuImage.backgroundColor = .yellow
         
         addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false

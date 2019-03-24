@@ -83,7 +83,7 @@ class CircleView : UIView , UIGestureRecognizerDelegate {
     
     
     func lineTo(circle: CircleView) -> CAShapeLayer {
-        let arrow = UIBezierPath.arrow(from: (self.mainPoint)!, to: (circle.mainPoint)!,tailWidth: 20, headWidth: 40, headLength: 20)
+        let arrow = UIBezierPath.arrow(from: (self.mainPoint)!, to: (circle.mainPoint)!,tailWidth: 2, headWidth: 8, headLength: 15)
         //let arrow = UIBezierPath.arrow2(from: (self.mainPoint)!, to: (circle.mainPoint)!, circle1: self, circle2: circle)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = arrow.cgPath
@@ -101,7 +101,7 @@ class CircleView : UIView , UIGestureRecognizerDelegate {
     
     
     func getPath(circle: CircleView) -> CGPath {
-        let arrow = UIBezierPath.arrow(from: (self.mainPoint)!, to: (circle.mainPoint)!,tailWidth: 20, headWidth: 40, headLength: 20)
+        let arrow = UIBezierPath.arrow(from: (self.mainPoint)!, to: (circle.mainPoint)!,tailWidth: 2, headWidth: 8, headLength: 15)
         //let arrow = UIBezierPath.arrow2(from: (self.mainPoint)!, to: (circle.mainPoint)!, circle1: self, circle2: circle)
         return arrow.cgPath
     }
