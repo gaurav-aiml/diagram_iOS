@@ -31,7 +31,7 @@ class CircleView : UIView , UIGestureRecognizerDelegate {
         self.isDelete = isDelete
         if self.isDelete!{
             let myImage = UIImage(named: "delete")?.cgImage
-            myLayer.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+            myLayer.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
             myLayer.contents = myImage
         }
     }
@@ -50,7 +50,7 @@ class CircleView : UIView , UIGestureRecognizerDelegate {
 //        plus.contentMode = .sca
 //        self.addSubview(plus)
         let myImage = UIImage(named: "plus")?.cgImage
-        myLayer.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        myLayer.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         myLayer.contents = myImage
         self.layer.addSublayer(myLayer)
         self.isUserInteractionEnabled = true

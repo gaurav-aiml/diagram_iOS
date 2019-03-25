@@ -102,6 +102,14 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         
         //tap gesture for anything other than demoviews
         
+        
+        let gridView = GridView(frame : dropZone!.frame)
+        gridView.backgroundColor = UIColor.clear
+        gridView.isUserInteractionEnabled = false
+        
+        dropZone!.addSubview(gridView)
+        
+        
         let mytapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(myTapAction))
         mytapGestureRecognizer.numberOfTapsRequired = 1
         mytapGestureRecognizer.delegate = self
@@ -212,7 +220,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
                 {
                     shapeName = "rounded rectangle"
                 }
-                self.add_a_shape(shape: shapeName, x: dropPoint.x, y: dropPoint.y, width: 160, height: 160, withID:self.getUniqueID(), withText: "Insert Your Text Here" )
+                self.add_a_shape(shape: shapeName, x: dropPoint.x - 90, y: dropPoint.y - 90, width: 180, height: 180, withID:self.getUniqueID(), withText: "Insert Your Text Here" )
             }
         }
     }

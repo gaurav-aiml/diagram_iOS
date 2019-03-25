@@ -24,10 +24,11 @@
 		3FC9567D2244C44100FF31B2 /* PDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956762244C44100FF31B2 /* PDFExtension.swift */; };
 		3FC9567E2244C44100FF31B2 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956772244C44100FF31B2 /* Arrow.swift */; };
 		3FC9567F2244C44100FF31B2 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956782244C44100FF31B2 /* PathView.swift */; };
-		3FC956802244C44100FF31B2 /* ProcessVoew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956792244C44100FF31B2 /* ProcessVoew.swift */; };
+		3FC956802244C44100FF31B2 /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956792244C44100FF31B2 /* ProcessView.swift */; };
 		3FC956812244C44100FF31B2 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567A2244C44100FF31B2 /* CircleView.swift */; };
 		3FC956822244C44100FF31B2 /* ShapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567B2244C44100FF31B2 /* ShapeCell.swift */; };
 		3FC956842244C44A00FF31B2 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956832244C44A00FF31B2 /* Protocols.swift */; };
+		59EB1BCF22498A4A0059C3D5 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EB1BCE22498A4A0059C3D5 /* GridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,10 +51,11 @@
 		3FC956762244C44100FF31B2 /* PDFExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFExtension.swift; sourceTree = "<group>"; };
 		3FC956772244C44100FF31B2 /* Arrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		3FC956782244C44100FF31B2 /* PathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
-		3FC956792244C44100FF31B2 /* ProcessVoew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessVoew.swift; sourceTree = "<group>"; };
+		3FC956792244C44100FF31B2 /* ProcessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessView.swift; sourceTree = "<group>"; };
 		3FC9567A2244C44100FF31B2 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		3FC9567B2244C44100FF31B2 /* ShapeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeCell.swift; sourceTree = "<group>"; };
 		3FC956832244C44A00FF31B2 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		59EB1BCE22498A4A0059C3D5 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +140,9 @@
 				3FC956782244C44100FF31B2 /* PathView.swift */,
 				3FC956762244C44100FF31B2 /* PDFExtension.swift */,
 				3FC956752244C44100FF31B2 /* ProcessModel.swift */,
-				3FC956792244C44100FF31B2 /* ProcessVoew.swift */,
+				3FC956792244C44100FF31B2 /* ProcessView.swift */,
 				3FC9567B2244C44100FF31B2 /* ShapeCell.swift */,
+				59EB1BCE22498A4A0059C3D5 /* GridView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59EB1BCF22498A4A0059C3D5 /* GridView.swift in Sources */,
 				3FC9566B2244C42C00FF31B2 /* SlideViewController.swift in Sources */,
 				3FC956732244C43600FF31B2 /* BlockType.swift in Sources */,
 				3FC9567C2244C44100FF31B2 /* ProcessModel.swift in Sources */,
@@ -226,7 +230,7 @@
 				3FC956722244C43600FF31B2 /* Node.swift in Sources */,
 				3FC956812244C44100FF31B2 /* CircleView.swift in Sources */,
 				3FC956742244C43600FF31B2 /* ArrayExtension.swift in Sources */,
-				3FC956802244C44100FF31B2 /* ProcessVoew.swift in Sources */,
+				3FC956802244C44100FF31B2 /* ProcessView.swift in Sources */,
 				3FC9566D2244C42C00FF31B2 /* LineViewController.swift in Sources */,
 				3F95C839224661C0002A739B /* MenuOption.swift in Sources */,
 				3FC956502244C3E500FF31B2 /* AppDelegate.swift in Sources */,
