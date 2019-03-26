@@ -112,6 +112,7 @@
 		3FC956622244C3FC00FF31B2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3FC956752244C44100FF31B2 /* ProcessModel.swift */,
 				3FC956712244C43600FF31B2 /* ArrayExtension.swift */,
 				3FC956702244C43600FF31B2 /* BlockType.swift */,
 				3FC9566F2244C43600FF31B2 /* Node.swift */,
@@ -139,7 +140,6 @@
 				3FC9567A2244C44100FF31B2 /* CircleView.swift */,
 				3FC956782244C44100FF31B2 /* PathView.swift */,
 				3FC956762244C44100FF31B2 /* PDFExtension.swift */,
-				3FC956752244C44100FF31B2 /* ProcessModel.swift */,
 				3FC956792244C44100FF31B2 /* ProcessView.swift */,
 				3FC9567B2244C44100FF31B2 /* ShapeCell.swift */,
 				59EB1BCE22498A4A0059C3D5 /* GridView.swift */,
