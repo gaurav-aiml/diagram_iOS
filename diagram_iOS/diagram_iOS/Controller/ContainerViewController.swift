@@ -20,11 +20,13 @@ class ContainerViewController: UIViewController {
     var navController : UIViewController!
     var isExpanded = false
     
-    
     override func viewDidLoad() {
+    
         super.viewDidLoad()
         configureHomeController()
         configureBlurEffect()
+        self.modalTransitionStyle = .crossDissolve
+        print(LandingPageViewController.projectName)
         
         // Do any additional setup after loading the view.
     }
@@ -60,8 +62,6 @@ class ContainerViewController: UIViewController {
         view.addSubview(navController.view)
         addChild(navController)
         didMove(toParent: self)
-        
-        
     }
     
 //    func setupHomeViewLayout(){
@@ -86,7 +86,7 @@ class ContainerViewController: UIViewController {
         
     }
     
-    func showMenuController(shouldExpand: Bool)
+    func showMenuController(shouldExpand: Bool, menuOption: MenuOption?)
     {
         // Configuring the Blur Effect
         if shouldExpand
@@ -95,29 +95,50 @@ class ContainerViewController: UIViewController {
                 self.navController.view.frame.origin.x = self.navController.view.frame.width/2 }, completion: nil)
             print("Animating Out")
             homeViewController.view.addSubview(blurEffectView)
-        }else
+        }
+        else
         {
-//            blurEffectView.isHidden = true
             print("Animating Back")
             blurEffectView.removeFromSuperview()
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseIn, animations:{self.navController.view.frame.origin.x = 0}, completion: nil)
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
+                self.navController.view.frame.origin.x = 0
+            }) { (_) in
+                guard let menuOption = menuOption else { return }
+                self.didSelectMenuOption(forMenuOption: menuOption)
+            }
             
         }
 
     }
+    
+    func didSelectMenuOption(forMenuOption menuOption: MenuOption){
+        switch menuOption{
+        case .Profile:
+            print("pro")
+        case .Load:
+            print("load")
+        case .SaveAs:
+            print("hello")
+        case .Save:
+            print("hi")
+        case .Screenshot:
+            print("how")
+        case .Recents:
+            print("are you")
+        }
+    }
+    
 }
 
 extension ContainerViewController: HomeControllerDelegate
 {
-    
-    func handleMenuToggle()
-    {
+    func handleMenuToggle(forMenuOption menuOption: MenuOption?) {
+        
         if !isExpanded
         {
             configureMenuController()
         }
         isExpanded = !isExpanded
-        print("changing expanded")
-        showMenuController(shouldExpand: isExpanded)
+        showMenuController(shouldExpand: isExpanded, menuOption: menuOption)
     }
 }

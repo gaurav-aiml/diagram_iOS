@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0BF9732251E78E0039BB6D /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BF9722251E78E0039BB6D /* LandingPageViewController.swift */; };
 		3F95C839224661C0002A739B /* MenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C838224661C0002A739B /* MenuOption.swift */; };
+		3FA9C1A022548867001B10C5 /* FileHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9C19F22548867001B10C5 /* FileHandling.swift */; };
 		3FC956502244C3E500FF31B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9564F2244C3E500FF31B2 /* AppDelegate.swift */; };
 		3FC956552244C3E500FF31B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FC956532244C3E500FF31B2 /* Main.storyboard */; };
 		3FC956572244C3E600FF31B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC956562244C3E600FF31B2 /* Assets.xcassets */; };
@@ -24,14 +26,16 @@
 		3FC9567D2244C44100FF31B2 /* PDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956762244C44100FF31B2 /* PDFExtension.swift */; };
 		3FC9567E2244C44100FF31B2 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956772244C44100FF31B2 /* Arrow.swift */; };
 		3FC9567F2244C44100FF31B2 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956782244C44100FF31B2 /* PathView.swift */; };
-		3FC956802244C44100FF31B2 /* ProcessVoew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956792244C44100FF31B2 /* ProcessVoew.swift */; };
+		3FC956802244C44100FF31B2 /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956792244C44100FF31B2 /* ProcessView.swift */; };
 		3FC956812244C44100FF31B2 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567A2244C44100FF31B2 /* CircleView.swift */; };
 		3FC956822244C44100FF31B2 /* ShapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567B2244C44100FF31B2 /* ShapeCell.swift */; };
 		3FC956842244C44A00FF31B2 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956832244C44A00FF31B2 /* Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F0BF9722251E78E0039BB6D /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
 		3F95C838224661C0002A739B /* MenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOption.swift; sourceTree = "<group>"; };
+		3FA9C19F22548867001B10C5 /* FileHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandling.swift; sourceTree = "<group>"; };
 		3FC9564C2244C3E500FF31B2 /* diagram_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diagram_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FC9564F2244C3E500FF31B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FC956542244C3E500FF31B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -50,7 +54,7 @@
 		3FC956762244C44100FF31B2 /* PDFExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFExtension.swift; sourceTree = "<group>"; };
 		3FC956772244C44100FF31B2 /* Arrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 		3FC956782244C44100FF31B2 /* PathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
-		3FC956792244C44100FF31B2 /* ProcessVoew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessVoew.swift; sourceTree = "<group>"; };
+		3FC956792244C44100FF31B2 /* ProcessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessView.swift; sourceTree = "<group>"; };
 		3FC9567A2244C44100FF31B2 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		3FC9567B2244C44100FF31B2 /* ShapeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeCell.swift; sourceTree = "<group>"; };
 		3FC956832244C44A00FF31B2 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				3FC956702244C43600FF31B2 /* BlockType.swift */,
 				3FC9566F2244C43600FF31B2 /* Node.swift */,
 				3F95C838224661C0002A739B /* MenuOption.swift */,
+				3FA9C19F22548867001B10C5 /* FileHandling.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 				3FC956682244C42C00FF31B2 /* LineViewController.swift */,
 				3FC956672244C42C00FF31B2 /* MenuViewController.swift */,
 				3FC956662244C42C00FF31B2 /* SlideViewController.swift */,
+				3F0BF9722251E78E0039BB6D /* LandingPageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -138,7 +144,7 @@
 				3FC956782244C44100FF31B2 /* PathView.swift */,
 				3FC956762244C44100FF31B2 /* PDFExtension.swift */,
 				3FC956752244C44100FF31B2 /* ProcessModel.swift */,
-				3FC956792244C44100FF31B2 /* ProcessVoew.swift */,
+				3FC956792244C44100FF31B2 /* ProcessView.swift */,
 				3FC9567B2244C44100FF31B2 /* ShapeCell.swift */,
 			);
 			path = View;
@@ -221,12 +227,14 @@
 				3FC956842244C44A00FF31B2 /* Protocols.swift in Sources */,
 				3FC9567F2244C44100FF31B2 /* PathView.swift in Sources */,
 				3FC9566C2244C42C00FF31B2 /* MenuViewController.swift in Sources */,
+				3FA9C1A022548867001B10C5 /* FileHandling.swift in Sources */,
 				3FC9567D2244C44100FF31B2 /* PDFExtension.swift in Sources */,
 				3FC9566E2244C42C00FF31B2 /* ContainerViewController.swift in Sources */,
 				3FC956722244C43600FF31B2 /* Node.swift in Sources */,
+				3F0BF9732251E78E0039BB6D /* LandingPageViewController.swift in Sources */,
 				3FC956812244C44100FF31B2 /* CircleView.swift in Sources */,
 				3FC956742244C43600FF31B2 /* ArrayExtension.swift in Sources */,
-				3FC956802244C44100FF31B2 /* ProcessVoew.swift in Sources */,
+				3FC956802244C44100FF31B2 /* ProcessView.swift in Sources */,
 				3FC9566D2244C42C00FF31B2 /* LineViewController.swift in Sources */,
 				3F95C839224661C0002A739B /* MenuOption.swift in Sources */,
 				3FC956502244C3E500FF31B2 /* AppDelegate.swift in Sources */,
@@ -378,14 +386,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NMTNB4V3B9;
 				INFOPLIST_FILE = diagram_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.GauravMPai.diagram-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Gaurav-Paidiagram-iOS1235646";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -395,14 +406,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NMTNB4V3B9;
 				INFOPLIST_FILE = diagram_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.GauravMPai.diagram-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Gaurav-Paidiagram-iOS1235646";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -122,6 +122,8 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         navigationController?.navigationBar.barStyle = .blackTranslucent
         navigationItem.title = "Excelsior"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "options")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(didClickMenu))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "exit")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(exitToLandingPage) )
+        
     }
     
     // Creates a drop zone which spans the enitre screen so that drop can be performed anywhere
@@ -360,7 +362,8 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     @objc func didClickMenu()
     {
         print("Registered click")
-        HomeViewController.delegate?.handleMenuToggle()
+        HomeViewController.delegate?.handleMenuToggle(forMenuOption: nil)
+        
     }
     
     
@@ -396,6 +399,10 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         del?.myView?.removeFromSuperview()
         del?.removeFromSuperview()
         
+    }
+    
+    @objc func exitToLandingPage(){
+        self.dismiss(animated: true)
     }
     
     
@@ -456,39 +463,39 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         
     }
     
-    @objc func take_screenshot(_ sender: UITapGestureRecognizer) {
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        var image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-        
-        let imgPath = dropZone!.exportAsPdfFromView()
-        print("\(imgPath)")
-    }
+    public func take_screenshot() {
+    UIGraphicsBeginImageContext(self.view.frame.size)
+    view.layer.render(in: UIGraphicsGetCurrentContext()!)
+    var image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
     
-    @objc func save_action(_ sender: UITapGestureRecognizer) {
-        let jsonEncoder = JSONEncoder()
-        //jsonEncoder.outputFormatting = .prettyPrinted
-        allData.allViews.removeAll()
-        
-        for view in views{
-            viewsAndData[view]?.text = view.textView.text
-            allData.allViews.append(viewsAndData[view]!)
-        }
-        self.jsonData = try? jsonEncoder.encode(allData.allViews)
-        
-        print(String(data: jsonData!, encoding: .utf8)!)
-        
-    }
+    let imgPath = dropZone!.exportAsPdfFromView()
+    print("\(imgPath)")
+}
     
-    @objc func load_action(_ sender: UITapGestureRecognizer) {
-        let jsonDecoder = JSONDecoder()
-        let decodedData = try? jsonDecoder.decode([uiViewData].self, from: self.jsonData!)
-        allData.allViews = decodedData!
-        print(allData.allViews)
-        restoreState()
+    public func save_action() {
+    let jsonEncoder = JSONEncoder()
+    //jsonEncoder.outputFormatting = .prettyPrinted
+    allData.allViews.removeAll()
+    
+    for view in views{
+        viewsAndData[view]?.text = view.textView.text
+        allData.allViews.append(viewsAndData[view]!)
     }
+    self.jsonData = try? jsonEncoder.encode(allData.allViews)
+    
+    print(String(data: jsonData!, encoding: .utf8)!)
+    
+}
+    
+    public func load_action() {
+    let jsonDecoder = JSONDecoder()
+    let decodedData = try? jsonDecoder.decode([uiViewData].self, from: self.jsonData!)
+    allData.allViews = decodedData!
+    print(allData.allViews)
+    restoreState()
+}
     
     func restoreState() {
         views.removeAll()

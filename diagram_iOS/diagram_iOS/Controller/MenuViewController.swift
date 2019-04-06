@@ -14,6 +14,7 @@ class MenuViewController: UIViewController {
     
     var menuView : UITableView!
     var cellId = "menuCell"
+    var delegate: HomeControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,6 @@ class MenuViewController: UIViewController {
         menuView.dataSource = self
         view.addSubview(menuView)
         menuView.register(MenuOptionCell.self, forCellReuseIdentifier: cellId)
-        
         
         //auto layout constraint
         menuView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +68,11 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource
         cell.menuImage.image = menuOption?.image
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let menuOption = MenuOption(rawValue: indexPath.row)
+        delegate?.handleMenuToggle(forMenuOption: menuOption)
+    }
 }
     
 class MenuOptionCell: UITableViewCell {
@@ -93,7 +98,7 @@ class MenuOptionCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         addSubview(menuImage)
         menuImage.translatesAutoresizingMaskIntoConstraints = false
