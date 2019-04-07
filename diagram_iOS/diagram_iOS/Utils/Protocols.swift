@@ -61,3 +61,7 @@ protocol AppFileManipulation : AppDirectoryNames
     
     func changeFileExtension(withName name: String, inDirectory: AppDirectories, toNewExtension newExtension: String) -> Bool
 }
+
+protocol setTimeControllerDelegate {
+    func setCountdown(with value : Double)
+}

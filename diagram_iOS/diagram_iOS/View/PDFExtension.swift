@@ -12,16 +12,26 @@ extension UIView {
     
     // Export pdf from Save pdf in drectory and return pdf file path
     func exportAsPdfFromView() -> String {
-        
-        let pdfPageFrame = self.bounds
+        scaler(v: self)
+        let pdfPageFrame = CGRect(x: 0, y: 0, width: self.bounds.width*8, height: self.bounds.height*8)
         let pdfData = NSMutableData()
         UIGraphicsBeginPDFContextToData(pdfData, pdfPageFrame, nil)
         UIGraphicsBeginPDFPageWithInfo(pdfPageFrame, nil)
         guard let pdfContext = UIGraphicsGetCurrentContext() else { return "" }
-        self.layer.render(in: pdfContext)
+        pdfContext.scaleBy(x: 1/8, y: 1/8)
+        self.layer.draw(in: pdfContext)
         UIGraphicsEndPDFContext()
         return self.saveViewPdf(data: pdfData)
         
+    }
+    
+    
+    func scaler(v: UIView) {
+            v.contentScaleFactor = 8
+        
+        for sv in v.subviews {
+            scaler(v: sv)
+        }
     }
     
     // Save pdf file in document directory

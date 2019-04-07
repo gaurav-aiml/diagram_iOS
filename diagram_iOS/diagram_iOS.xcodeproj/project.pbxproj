@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		3F0BF9732251E78E0039BB6D /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0BF9722251E78E0039BB6D /* LandingPageViewController.swift */; };
+		3F15B8002259D90800901805 /* BottleneckFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B7FF2259D90800901805 /* BottleneckFiles.swift */; };
+		3F15B8022259D92900901805 /* BottleneckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B8012259D92900901805 /* BottleneckViewController.swift */; };
+		3F15B8042259D93F00901805 /* recordBottleneckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B8032259D93F00901805 /* recordBottleneckViewController.swift */; };
+		3F15B8062259D94500901805 /* setTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B8052259D94500901805 /* setTimeViewController.swift */; };
+		3F15B80D2259D98B00901805 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B8072259D98B00901805 /* GridView.swift */; };
+		3F15B80E2259D98B00901805 /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B8082259D98B00901805 /* ArrowShape.swift */; };
+		3F15B80F2259D98B00901805 /* BarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B8092259D98B00901805 /* BarEntry.swift */; };
+		3F15B8102259D98B00901805 /* BeautifulBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B80A2259D98B00901805 /* BeautifulBarChart.swift */; };
+		3F15B8112259D98B00901805 /* arrow3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B80B2259D98B00901805 /* arrow3.swift */; };
+		3F15B8122259D98B00901805 /* BasicBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15B80C2259D98B00901805 /* BasicBarChart.swift */; };
 		3F95C839224661C0002A739B /* MenuOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C838224661C0002A739B /* MenuOption.swift */; };
 		3FA9C1A022548867001B10C5 /* FileHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA9C19F22548867001B10C5 /* FileHandling.swift */; };
 		3FC956502244C3E500FF31B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9564F2244C3E500FF31B2 /* AppDelegate.swift */; };
@@ -17,15 +27,11 @@
 		3FC9566A2244C42C00FF31B2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956652244C42C00FF31B2 /* HomeViewController.swift */; };
 		3FC9566B2244C42C00FF31B2 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956662244C42C00FF31B2 /* SlideViewController.swift */; };
 		3FC9566C2244C42C00FF31B2 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956672244C42C00FF31B2 /* MenuViewController.swift */; };
-		3FC9566D2244C42C00FF31B2 /* LineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956682244C42C00FF31B2 /* LineViewController.swift */; };
 		3FC9566E2244C42C00FF31B2 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956692244C42C00FF31B2 /* ContainerViewController.swift */; };
-		3FC956722244C43600FF31B2 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9566F2244C43600FF31B2 /* Node.swift */; };
-		3FC956732244C43600FF31B2 /* BlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956702244C43600FF31B2 /* BlockType.swift */; };
 		3FC956742244C43600FF31B2 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956712244C43600FF31B2 /* ArrayExtension.swift */; };
 		3FC9567C2244C44100FF31B2 /* ProcessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956752244C44100FF31B2 /* ProcessModel.swift */; };
 		3FC9567D2244C44100FF31B2 /* PDFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956762244C44100FF31B2 /* PDFExtension.swift */; };
 		3FC9567E2244C44100FF31B2 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956772244C44100FF31B2 /* Arrow.swift */; };
-		3FC9567F2244C44100FF31B2 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956782244C44100FF31B2 /* PathView.swift */; };
 		3FC956802244C44100FF31B2 /* ProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956792244C44100FF31B2 /* ProcessView.swift */; };
 		3FC956812244C44100FF31B2 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567A2244C44100FF31B2 /* CircleView.swift */; };
 		3FC956822244C44100FF31B2 /* ShapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567B2244C44100FF31B2 /* ShapeCell.swift */; };
@@ -34,6 +40,16 @@
 
 /* Begin PBXFileReference section */
 		3F0BF9722251E78E0039BB6D /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
+		3F15B7FF2259D90800901805 /* BottleneckFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottleneckFiles.swift; sourceTree = "<group>"; };
+		3F15B8012259D92900901805 /* BottleneckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottleneckViewController.swift; sourceTree = "<group>"; };
+		3F15B8032259D93F00901805 /* recordBottleneckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = recordBottleneckViewController.swift; sourceTree = "<group>"; };
+		3F15B8052259D94500901805 /* setTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = setTimeViewController.swift; sourceTree = "<group>"; };
+		3F15B8072259D98B00901805 /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		3F15B8082259D98B00901805 /* ArrowShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowShape.swift; sourceTree = "<group>"; };
+		3F15B8092259D98B00901805 /* BarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarEntry.swift; sourceTree = "<group>"; };
+		3F15B80A2259D98B00901805 /* BeautifulBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarChart.swift; sourceTree = "<group>"; };
+		3F15B80B2259D98B00901805 /* arrow3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = arrow3.swift; sourceTree = "<group>"; };
+		3F15B80C2259D98B00901805 /* BasicBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarChart.swift; sourceTree = "<group>"; };
 		3F95C838224661C0002A739B /* MenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOption.swift; sourceTree = "<group>"; };
 		3FA9C19F22548867001B10C5 /* FileHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandling.swift; sourceTree = "<group>"; };
 		3FC9564C2244C3E500FF31B2 /* diagram_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diagram_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,15 +61,11 @@
 		3FC956652244C42C00FF31B2 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3FC956662244C42C00FF31B2 /* SlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		3FC956672244C42C00FF31B2 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		3FC956682244C42C00FF31B2 /* LineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineViewController.swift; sourceTree = "<group>"; };
 		3FC956692244C42C00FF31B2 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
-		3FC9566F2244C43600FF31B2 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		3FC956702244C43600FF31B2 /* BlockType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockType.swift; sourceTree = "<group>"; };
 		3FC956712244C43600FF31B2 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		3FC956752244C44100FF31B2 /* ProcessModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessModel.swift; sourceTree = "<group>"; };
 		3FC956762244C44100FF31B2 /* PDFExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFExtension.swift; sourceTree = "<group>"; };
 		3FC956772244C44100FF31B2 /* Arrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
-		3FC956782244C44100FF31B2 /* PathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		3FC956792244C44100FF31B2 /* ProcessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessView.swift; sourceTree = "<group>"; };
 		3FC9567A2244C44100FF31B2 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		3FC9567B2244C44100FF31B2 /* ShapeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeCell.swift; sourceTree = "<group>"; };
@@ -115,8 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				3FC956712244C43600FF31B2 /* ArrayExtension.swift */,
-				3FC956702244C43600FF31B2 /* BlockType.swift */,
-				3FC9566F2244C43600FF31B2 /* Node.swift */,
+				3F15B7FF2259D90800901805 /* BottleneckFiles.swift */,
 				3F95C838224661C0002A739B /* MenuOption.swift */,
 				3FA9C19F22548867001B10C5 /* FileHandling.swift */,
 			);
@@ -128,8 +139,10 @@
 			children = (
 				3FC956692244C42C00FF31B2 /* ContainerViewController.swift */,
 				3FC956652244C42C00FF31B2 /* HomeViewController.swift */,
-				3FC956682244C42C00FF31B2 /* LineViewController.swift */,
+				3F15B8012259D92900901805 /* BottleneckViewController.swift */,
+				3F15B8052259D94500901805 /* setTimeViewController.swift */,
 				3FC956672244C42C00FF31B2 /* MenuViewController.swift */,
+				3F15B8032259D93F00901805 /* recordBottleneckViewController.swift */,
 				3FC956662244C42C00FF31B2 /* SlideViewController.swift */,
 				3F0BF9722251E78E0039BB6D /* LandingPageViewController.swift */,
 			);
@@ -141,7 +154,12 @@
 			children = (
 				3FC956772244C44100FF31B2 /* Arrow.swift */,
 				3FC9567A2244C44100FF31B2 /* CircleView.swift */,
-				3FC956782244C44100FF31B2 /* PathView.swift */,
+				3F15B80B2259D98B00901805 /* arrow3.swift */,
+				3F15B8082259D98B00901805 /* ArrowShape.swift */,
+				3F15B8092259D98B00901805 /* BarEntry.swift */,
+				3F15B80C2259D98B00901805 /* BasicBarChart.swift */,
+				3F15B80A2259D98B00901805 /* BeautifulBarChart.swift */,
+				3F15B8072259D98B00901805 /* GridView.swift */,
 				3FC956762244C44100FF31B2 /* PDFExtension.swift */,
 				3FC956752244C44100FF31B2 /* ProcessModel.swift */,
 				3FC956792244C44100FF31B2 /* ProcessView.swift */,
@@ -221,26 +239,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F15B8062259D94500901805 /* setTimeViewController.swift in Sources */,
 				3FC9566B2244C42C00FF31B2 /* SlideViewController.swift in Sources */,
-				3FC956732244C43600FF31B2 /* BlockType.swift in Sources */,
 				3FC9567C2244C44100FF31B2 /* ProcessModel.swift in Sources */,
 				3FC956842244C44A00FF31B2 /* Protocols.swift in Sources */,
-				3FC9567F2244C44100FF31B2 /* PathView.swift in Sources */,
+				3F15B8102259D98B00901805 /* BeautifulBarChart.swift in Sources */,
+				3F15B80D2259D98B00901805 /* GridView.swift in Sources */,
+				3F15B80F2259D98B00901805 /* BarEntry.swift in Sources */,
+				3F15B8042259D93F00901805 /* recordBottleneckViewController.swift in Sources */,
+				3F15B8022259D92900901805 /* BottleneckViewController.swift in Sources */,
+				3F15B80E2259D98B00901805 /* ArrowShape.swift in Sources */,
 				3FC9566C2244C42C00FF31B2 /* MenuViewController.swift in Sources */,
 				3FA9C1A022548867001B10C5 /* FileHandling.swift in Sources */,
+				3F15B8002259D90800901805 /* BottleneckFiles.swift in Sources */,
 				3FC9567D2244C44100FF31B2 /* PDFExtension.swift in Sources */,
 				3FC9566E2244C42C00FF31B2 /* ContainerViewController.swift in Sources */,
-				3FC956722244C43600FF31B2 /* Node.swift in Sources */,
+				3F15B8112259D98B00901805 /* arrow3.swift in Sources */,
 				3F0BF9732251E78E0039BB6D /* LandingPageViewController.swift in Sources */,
 				3FC956812244C44100FF31B2 /* CircleView.swift in Sources */,
 				3FC956742244C43600FF31B2 /* ArrayExtension.swift in Sources */,
 				3FC956802244C44100FF31B2 /* ProcessView.swift in Sources */,
-				3FC9566D2244C42C00FF31B2 /* LineViewController.swift in Sources */,
 				3F95C839224661C0002A739B /* MenuOption.swift in Sources */,
 				3FC956502244C3E500FF31B2 /* AppDelegate.swift in Sources */,
 				3FC956822244C44100FF31B2 /* ShapeCell.swift in Sources */,
 				3FC9566A2244C42C00FF31B2 /* HomeViewController.swift in Sources */,
 				3FC9567E2244C44100FF31B2 /* Arrow.swift in Sources */,
+				3F15B8122259D98B00901805 /* BasicBarChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +412,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NMTNB4V3B9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = diagram_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -408,7 +432,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NMTNB4V3B9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = diagram_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
