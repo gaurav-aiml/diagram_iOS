@@ -119,14 +119,9 @@ class LandingPageViewController: UIViewController {
                             let cont = ContainerViewController()
                             self.present(cont, animated: true)
                     }
-                
             }
-            
         }))
-        
         self.present(alert, animated: true)
-        
-        
     }
 
 }

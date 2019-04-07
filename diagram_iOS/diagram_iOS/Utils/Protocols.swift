@@ -38,7 +38,7 @@ protocol AppFileStatusChecking
 
 protocol AppFileSystemMetaData
 {
-    func list(directory at: URL) -> Bool
+    func list(directory at: URL) -> [String]
     
     func attributes(ofFile atFullPath: URL) -> [FileAttributeKey : Any]
 }

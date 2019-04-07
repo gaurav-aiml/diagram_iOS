@@ -37,6 +37,10 @@ struct FileHandling : AppFileManipulation, AppFileStatusChecking, AppFileSystemM
         return false
     }
     
+    func list() -> [String]
+    {
+        return list(directory: getURL(for: .Documents))
+    }
     
     
     
@@ -138,7 +142,7 @@ extension AppFileStatusChecking
 
 extension AppFileSystemMetaData
 {
-    func list(directory at: URL) -> Bool
+    func list(directory at: URL) -> [String]
     {
         let listing = try! FileManager.default.contentsOfDirectory(atPath: at.path)
         
@@ -153,13 +157,8 @@ extension AppFileSystemMetaData
             }
             print("")
             print("----------------------------\n")
-            
-            return true
         }
-        else
-        {
-            return false
-        }
+        return listing
     }
     
     func attributes(ofFile atFullPath: URL) -> [FileAttributeKey : Any]
@@ -178,6 +177,7 @@ extension AppFileManipulation
     func createDirectory(at path: AppDirectories, withName name: String) -> Bool
     {
         let directoryPath = getURL(for: path).path + "/" + name
+        print(directoryPath)
         if !FileManager.default.fileExists(atPath: directoryPath)
         {
             do
