@@ -28,10 +28,10 @@ extension UIView {
     func exportAsImage(){
         scaler(v: self)
         UIGraphicsBeginImageContext(self.frame.size)
-        self.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let image = UIGraphicsGetCurrentContext()
+        self.layer.render(in: image!)
         UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(UIImage(cgImage: (image?.makeImage())!), nil, nil, nil)
     }
     
     func scaler(v: UIView) {
