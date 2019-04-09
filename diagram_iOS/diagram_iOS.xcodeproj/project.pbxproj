@@ -52,6 +52,7 @@
 		3F15B80C2259D98B00901805 /* BasicBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarChart.swift; sourceTree = "<group>"; };
 		3F95C838224661C0002A739B /* MenuOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOption.swift; sourceTree = "<group>"; };
 		3FA9C19F22548867001B10C5 /* FileHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandling.swift; sourceTree = "<group>"; };
+		3FAC9AB6225C75DF00E873FE /* diagram_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = diagram_iOS.entitlements; sourceTree = "<group>"; };
 		3FC9564C2244C3E500FF31B2 /* diagram_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diagram_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FC9564F2244C3E500FF31B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FC956542244C3E500FF31B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		3FC9564E2244C3E500FF31B2 /* diagram_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				3FAC9AB6225C75DF00E873FE /* diagram_iOS.entitlements */,
 				3FC956642244C40000FF31B2 /* View */,
 				3FC956632244C3FE00FF31B2 /* Controller */,
 				3FC956622244C3FC00FF31B2 /* Model */,
@@ -200,6 +202,11 @@
 				TargetAttributes = {
 					3FC9564B2244C3E500FF31B2 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -410,15 +417,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = diagram_iOS/diagram_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NMTNB4V3B9;
 				INFOPLIST_FILE = diagram_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Gaurav-Paidiagram-iOS1235646";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Gaurav-Pai.diagram-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -430,15 +438,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = diagram_iOS/diagram_iOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NMTNB4V3B9;
 				INFOPLIST_FILE = diagram_iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Gaurav-Paidiagram-iOS1235646";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Gaurav-Pai.diagram-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;

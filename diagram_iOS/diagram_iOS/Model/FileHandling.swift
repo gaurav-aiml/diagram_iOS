@@ -37,12 +37,15 @@ struct FileHandling : AppFileManipulation, AppFileStatusChecking, AppFileSystemM
         return false
     }
     
-    func list() -> [String]
+    func listProjects() -> [String]
     {
         return list(directory: getURL(for: .Documents))
     }
     
-    
+    func findFile() ->Bool
+    {
+        return exists(file: getURL(for: .Documents).appendingPathComponent(name))
+    }
     
     
 }
@@ -193,11 +196,11 @@ extension AppFileManipulation
         print("Directory already exists. Choose a unique name for the project")
         return false
     }
-    func writeFile(containing: String, to path: AppDirectories, withName name: String) -> Bool
+    func writeFile(containing: String, to path: URL, withName name: String) -> Bool
     {
-        let filePath = getURL(for: path).path + "/" + name
+        let filePath =  path.appendingPathComponent(name)
         let rawData: Data? = containing.data(using: .utf8)
-        return FileManager.default.createFile(atPath: filePath, contents: rawData, attributes: nil)
+        return FileManager.default.createFile(atPath: filePath.path, contents: rawData, attributes: nil)
     }
     
     func readFile(at path: AppDirectories, withName name: String) -> String
