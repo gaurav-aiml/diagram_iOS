@@ -47,7 +47,7 @@ protocol AppFileManipulation : AppDirectoryNames
 {
     func createDirectory(at path: AppDirectories, withName name: String) -> Bool
     
-    func writeFile(containing: String, to path: AppDirectories, withName name: String) -> Bool
+    func writeFile(containing: String, to path: URL, withName name: String) -> Bool
     
     func readFile(at path: AppDirectories, withName name: String) -> String
     

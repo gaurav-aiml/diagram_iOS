@@ -247,11 +247,11 @@ extension AppFileManipulation
         return false
     }
     
-    func writeFile(containing: String, to path: AppDirectories, withName name: String) -> Bool
+    func writeFile(containing: String, to path: URL, withName name: String) -> Bool
     {
-        let filePath = getURL(for: path).path + "/" + name
+        let filePath =  path.appendingPathComponent(name)
         let rawData: Data? = containing.data(using: .utf8)
-        return FileManager.default.createFile(atPath: filePath, contents: rawData, attributes: nil)
+        return FileManager.default.createFile(atPath: filePath.path, contents: rawData, attributes: nil)
     }
     
     func readFile(at path: AppDirectories, withName name: String) -> String
