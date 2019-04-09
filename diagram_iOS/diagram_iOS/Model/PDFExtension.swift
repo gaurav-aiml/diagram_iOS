@@ -27,7 +27,8 @@ extension UIView {
     
     func exportAsImage(){
         scaler(v: self)
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, true, 8)
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 8)
+        self.layer.contentsScale = 8
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

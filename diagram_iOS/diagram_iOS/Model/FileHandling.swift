@@ -47,9 +47,15 @@ struct FileHandling : AppFileManipulation, AppFileStatusChecking, AppFileSystemM
         return false
     }
     
-    func list() -> [String]
+    
+    func listProjects() -> [String]
     {
         return list(directory: getURL(for: .Documents))
+    }
+    
+    func findFile() ->Bool
+    {
+        return exists(file: getURL(for: .Documents).appendingPathComponent(name))
     }
     
     

@@ -10,7 +10,7 @@ import UIKit
 
 var data = helperDatabase()
 
-class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, AppFileManipulation, AppFileStatusChecking, AppFileSystemMetaData {
     
     
     // MARK: - Properties
@@ -57,6 +57,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         self.scrollView?.delegate = self
         
         // Do any additional setup after loading the view
+        load_action()
     }
     
     // MARK: - Handlers
@@ -145,11 +146,11 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         loadButton.setTitle("Load", for: UIControl.State.normal)
         loadButton.backgroundColor = UIColor.black
         
-        self.view.addSubview(loadButton)
-        let loadGesture = UITapGestureRecognizer(target: self, action: #selector(load_action))
-        loadGesture.numberOfTapsRequired = 1
-        loadGesture.delegate = self
-        loadButton.addGestureRecognizer(loadGesture)
+//        self.view.addSubview(loadButton)
+//        let loadGesture = UITapGestureRecognizer(target: self, action: #selector(load_action))
+//        loadGesture.numberOfTapsRequired = 1
+//        loadGesture.delegate = self
+//        loadButton.addGestureRecognizer(loadGesture)
         
         
         let bottleneckButton = UIButton(frame: CGRect(x: self.view.frame.width - 430, y: 60, width: 100, height: 40))
@@ -234,6 +235,53 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
                 }
                 self.add_a_shape(shape: shapeName, x: dropPoint.x - 75, y: dropPoint.y - 75, width: 150, height: 150, withID:self.getUniqueID(), withText: "Insert Text", withCircleID: [self.getUniqueID(),self.getUniqueID(),self.getUniqueID(),self.getUniqueID()] )
                 
+            }
+        }
+    }
+    
+    @objc func save_action(_ sender: UITapGestureRecognizer) {
+        
+        let jsonEncoder = JSONEncoder()
+        //jsonEncoder.outputFormatting = .prettyPrinted
+        //        allData.allViews.removeAll()
+        let allData = entireData()
+        
+        for view in data.views{
+            data.viewsAndData[view]?.text = view.textView.text
+            data.viewsAndData[view]?.x = Double(view.frame.origin.x)
+            data.viewsAndData[view]?.y = Double(view.frame.origin.y)
+            data.viewsAndData[view]?.width = Double(view.frame.width)
+            data.viewsAndData[view]?.height = Double(view.frame.height)
+            allData.allViews.append(data.viewsAndData[view]!)
+        }
+        
+        for arrow in data.arrows{
+            data.arrowsAndData[arrow]?.okText = arrow.okTextField.text ?? ""
+            data.arrowsAndData[arrow]?.timeText = arrow.timeTextField.text ?? ""
+            data.arrowsAndData[arrow]?.isExpanded = arrow.isExpanded
+            allData.allArrows.append(data.arrowsAndData[arrow]!)
+        }
+        self.jsonData = try? jsonEncoder.encode(allData)
+        let path = getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
+        let fileName = LandingPageViewController.projectName+".excelsior"
+        writeFile(containing: String(data: jsonData!, encoding: .utf8)!, to: path, withName: fileName)
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+    }
+    
+    func load_action()
+    {
+        let fileName = "/"+LandingPageViewController.projectName+"/"+LandingPageViewController.projectName+".excelsior"
+        let file = FileHandling(name: fileName)
+        if file.findFile() {
+            try? self.jsonData = Data(contentsOf: getURL(for: .Documents).appendingPathComponent(fileName), options: .uncachedRead)
+            print("Data encoded")
+            let jsonDecoder = JSONDecoder()
+            let decodedData = try? jsonDecoder.decode(entireData.self, from: self.jsonData!)
+            if decodedData != nil {
+                let allData = decodedData
+                print(allData?.allArrows.count)
+                print(allData?.allViews.count)
+                restoreState(allData: allData!)
             }
         }
     }
@@ -466,51 +514,18 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     
     
     @objc func take_screenshot(_ sender: UITapGestureRecognizer) {
-        dropZone!.exportAsImage()
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
         
         let imgPath = dropZone!.exportAsPdfFromView()
         print("\(imgPath)")
     }
     
     
-    @objc func save_action(_ sender: UITapGestureRecognizer) {
-        
-        let jsonEncoder = JSONEncoder()
-        //jsonEncoder.outputFormatting = .prettyPrinted
-        //        allData.allViews.removeAll()
-        let allData = entireData()
-        
-        for view in data.views{
-            data.viewsAndData[view]?.text = view.textView.text
-            data.viewsAndData[view]?.x = Double(view.frame.origin.x)
-            data.viewsAndData[view]?.y = Double(view.frame.origin.y)
-            data.viewsAndData[view]?.width = Double(view.frame.width)
-            data.viewsAndData[view]?.height = Double(view.frame.height)
-            allData.allViews.append(data.viewsAndData[view]!)
-        }
-        
-        for arrow in data.arrows{
-            data.arrowsAndData[arrow]?.okText = arrow.okTextField.text ?? ""
-            data.arrowsAndData[arrow]?.timeText = arrow.timeTextField.text ?? ""
-            data.arrowsAndData[arrow]?.isExpanded = arrow.isExpanded
-            allData.allArrows.append(data.arrowsAndData[arrow]!)
-        }
-        self.jsonData = try? jsonEncoder.encode(allData)
-        
-        print(String(data: jsonData!, encoding: .utf8)!)
-        
-    }
     
-    @objc func load_action(_ sender: UITapGestureRecognizer) {
-        let jsonDecoder = JSONDecoder()
-        let decodedData = try? jsonDecoder.decode(entireData.self, from: self.jsonData!)
-        if decodedData != nil {
-            let allData = decodedData
-            print(allData?.allArrows.count as Any)
-            print(allData?.allViews.count as Any)
-            restoreState(allData: allData!)
-        }
-    }
     
     func restoreState(allData: entireData){
         data.reset()
@@ -631,5 +646,6 @@ extension HomeViewController: setTimeControllerDelegate
     {
         self.isTimeSet = true
         self.countdownValue = value
+        print("time in home is \(self.countdownValue)")
     }
 }
