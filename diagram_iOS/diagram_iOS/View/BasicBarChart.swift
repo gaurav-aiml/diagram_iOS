@@ -87,6 +87,7 @@ class BasicBarChart: UIView {
     
     private func drawBar(xPos: CGFloat, yPos: CGFloat, color: UIColor) {
         let barLayer = CALayer()
+        barLayer.contentsScale = 8
         barLayer.frame = CGRect(x: xPos, y: yPos, width: barWidth, height: mainLayer.frame.height - bottomSpace - yPos)
         barLayer.backgroundColor = color.cgColor
         mainLayer.addSublayer(barLayer)
@@ -118,6 +119,7 @@ class BasicBarChart: UIView {
     
     private func drawTextValue(xPos: CGFloat, yPos: CGFloat, textValue: String, color: UIColor) {
         let textLayer = CATextLayer()
+        textLayer.contentsScale = 8
         textLayer.frame = CGRect(x: xPos, y: yPos, width: barWidth+space, height: 22)
         textLayer.foregroundColor = color.cgColor
         textLayer.backgroundColor = UIColor.clear.cgColor
@@ -131,6 +133,7 @@ class BasicBarChart: UIView {
     
     private func drawTitle(xPos: CGFloat, yPos: CGFloat, title: String, color: UIColor) {
         let textLayer = CATextLayer()
+        textLayer.contentsScale = 8
         textLayer.frame = CGRect(x: xPos, y: yPos, width: barWidth + space, height: 22)
         textLayer.foregroundColor = color.cgColor
         textLayer.backgroundColor = UIColor.clear.cgColor

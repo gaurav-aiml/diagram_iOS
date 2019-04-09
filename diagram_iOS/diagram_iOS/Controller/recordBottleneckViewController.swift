@@ -52,7 +52,7 @@ class recordBottleneckViewController: UIViewController {
         reset = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 70))
         reset.center = CGPoint(x: self.view.center.x + 150, y: self.view.center.y)
         reset.setTitle("Reset", for: UIControl.State.normal)
-        reset.addTarget(self, action: #selector(resetButtonTapped), for: UIControl.Event.touchUpOutside)
+        reset.addTarget(self, action: #selector(resetButtonTapped), for: UIControl.Event.touchUpInside)
         reset.backgroundColor = .black
         
         pause = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 70))
@@ -160,63 +160,7 @@ class recordBottleneckViewController: UIViewController {
     
     
     
-    func writeToFile(){
-        let fileName = String(describing: inputProcessView.processID!)
-        let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        
-        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("notes.txt")
-        let fileURL2 = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("count.txt")
-        print(fileURL)
-        var text = notesField.text!
-        do {
-            try text.write(to: fileURL, atomically: true, encoding: .utf8)
-        } catch {
-            print("failed with error: \(error)")
-        }
-        
-        text = "\(inputProcessView.textView.text!)$$\(outputField.text!)"
-        
-        do {
-            try text.write(to: fileURL2, atomically: true, encoding: .utf8)
-        } catch {
-            print("failed with error: \(error)")
-        }
-        
-
-    }
     
-    
-    func alreadyHasData(){
-        let fileName = String(describing: inputProcessView.processID!)
-        let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        
-        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("notes.txt")
-        let fileURL2 = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("count.txt")
-        
-        let fileManager  = FileManager.default
-        
-        do {
-            let text1 = try String(contentsOf: fileURL, encoding: .utf8)
-            notesField.text = text1
-            //print("Read back text: \(text2)")
-        }
-        catch {
-            print("failed with error: \(error)")
-        }
-        
-        do {
-            let text2 = try String(contentsOf: fileURL2, encoding: .utf8)
-            let splitText = text2.components(separatedBy: "$$")
-            if splitText.count == 2{
-                outputField.text = splitText[1]
-                outputField.isHidden = false
-            }
-            //print("Read back text: \(text2)")
-        }
-        catch {
-            print("failed with error: \(error)")
-        }
-    }
     /*
     // MARK: - Navigation
 
@@ -227,4 +171,38 @@ class recordBottleneckViewController: UIViewController {
     }
     */
 
+}
+
+extension recordBottleneckViewController : AppFileManipulation, AppFileStatusChecking, AppFileSystemMetaData{
+    func writeToFile(){
+        let fileName = String(describing: inputProcessView.processID!)
+        print(documentsDirectoryURL())
+        var text = notesField.text!
+        if !writeFile(containing: text, to: .Documents, withName: "\(LandingPageViewController.projectName)/\(fileName).notes") {
+            print("Error writing notes file to documents")
+        }
+        text = "\(inputProcessView.textView.text!)$$\(outputField.text!)"
+        if !writeFile(containing: text, to: .Documents, withName: "\(LandingPageViewController.projectName)/\(fileName).count") {
+            print("Error writing count file to documents")
+        }
+    }
+    
+    
+    func alreadyHasData(){
+        let fileName = String(describing: inputProcessView.processID!)
+        let fileURL = buildFullPath(forFileName: "\(LandingPageViewController.projectName)/\(fileName).notes", inDirectory: .Documents)
+        let fileURL2 = buildFullPath(forFileName: "\(LandingPageViewController.projectName)/\(fileName).count", inDirectory: .Documents)
+        
+        if exists(file: fileURL){
+            notesField.text = readFile(at: .Documents, withName: "\(LandingPageViewController.projectName)/\(fileName).notes")
+        }
+        if exists(file: fileURL2){
+            let text = readFile(at: .Documents, withName: "\(LandingPageViewController.projectName)/\(fileName).count")
+            let splitText = text.components(separatedBy: "$$")
+            if splitText.count == 2{
+                outputField.text = splitText[1]
+                outputField.isHidden = false
+            }
+        }
+    }
 }

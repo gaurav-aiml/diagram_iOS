@@ -466,11 +466,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     
     
     @objc func take_screenshot(_ sender: UITapGestureRecognizer) {
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        dropZone!.exportAsImage()
         
         let imgPath = dropZone!.exportAsPdfFromView()
         print("\(imgPath)")
@@ -510,8 +506,8 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         let decodedData = try? jsonDecoder.decode(entireData.self, from: self.jsonData!)
         if decodedData != nil {
             let allData = decodedData
-            print(allData?.allArrows.count)
-            print(allData?.allViews.count)
+            print(allData?.allArrows.count as Any)
+            print(allData?.allViews.count as Any)
             restoreState(allData: allData!)
         }
     }
@@ -635,6 +631,5 @@ extension HomeViewController: setTimeControllerDelegate
     {
         self.isTimeSet = true
         self.countdownValue = value
-        print("time in home is \(self.countdownValue)")
     }
 }

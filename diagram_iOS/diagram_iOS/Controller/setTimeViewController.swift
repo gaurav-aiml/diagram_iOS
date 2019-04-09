@@ -36,7 +36,6 @@ class setTimeViewController: UIViewController {
     @objc func doneGesture(_ sender: UIGestureRecognizer){
         let value = timeDial.countDownDuration
         timeSet = value.magnitude
-        print("timer set to \(timeSet)")
         self.delegate?.setCountdown(with: timeSet!)
         self.navigationController?.popViewController(animated: true)
     }

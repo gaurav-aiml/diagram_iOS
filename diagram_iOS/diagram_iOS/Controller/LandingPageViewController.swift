@@ -99,7 +99,6 @@ class LandingPageViewController: UIViewController {
     
     @objc func openNewDoc(){
         print("clicked")
-        
         let alert = UIAlertController(title: "Enter the name of the Project", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
@@ -111,9 +110,9 @@ class LandingPageViewController: UIViewController {
         { action in
             if ((alert.textFields?.first?.text) != nil)
             {
-                LandingPageViewController.projectName = alert.textFields?.first?.text as! String
+                LandingPageViewController.projectName = (alert.textFields?.first?.text)! 
                     let directory = FileHandling(name: LandingPageViewController.projectName)
-                    if directory.createNewProjectDirectory()
+                    if directory.createNewProjectDirectory(), directory.createSharedProjectDirectory()
                     {
                             print("Directory successfully created!")
                             let cont = ContainerViewController()

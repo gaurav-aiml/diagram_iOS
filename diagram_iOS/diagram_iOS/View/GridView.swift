@@ -25,7 +25,7 @@ class GridView: UIView {
         if let context = UIGraphicsGetCurrentContext() {
             
             context.setLineWidth(lineWidth)
-            context.setStrokeColor(#colorLiteral(red: 0.8842599937, green: 0.8842599937, blue: 0.8842599937, alpha: 1))
+            context.setStrokeColor(#colorLiteral(red: 0.8529897541, green: 0.8529897541, blue: 0.8529897541, alpha: 1))
             
             //            let columnWidth = Int(rect.width) / (numberOfColumns + 1)
             let columnWidth = 50

@@ -334,8 +334,6 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
         
         func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { return CGPoint(x: x, y: y) }
         
-        var arrowFlag = false
-        
         let start = circle1.mainPoint!
         let end = circle2.mainPoint!
         var _start: CGPoint!

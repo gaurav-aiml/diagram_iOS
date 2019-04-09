@@ -14,15 +14,15 @@ class BottleneckFiles {
     
     init() {
         
-        let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        
+        var DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        DocumentDirURL.appendPathComponent("\(LandingPageViewController.projectName)/")
 //        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("notes.txt")
 //        let fileURL2 = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("count.txt")
         
         let fileManager = FileManager.default
         let enumerator: FileManager.DirectoryEnumerator = fileManager.enumerator(atPath: DocumentDirURL.path)!
         while let element = enumerator.nextObject() as? String {
-            guard element.hasSuffix("count.txt") else { continue }
+            guard element.hasSuffix("count") else { continue }
             /*use the element here*/
             let fileURL = DocumentDirURL.appendingPathComponent(element)
             do {

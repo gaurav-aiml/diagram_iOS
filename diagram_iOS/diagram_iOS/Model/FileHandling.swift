@@ -14,6 +14,7 @@ enum AppDirectories: String {
     case Inbox = "Inbox"
     case Library = "Library"
     case Temp = "tmp"
+    case Shared = "Shared"
 }
 
 
@@ -26,6 +27,15 @@ struct FileHandling : AppFileManipulation, AppFileStatusChecking, AppFileSystemM
         self.name = name
     }
     
+    func createSharedProjectDirectory() -> Bool{
+        if createSharedDirectory(withName: name)
+        {
+            print("Success")
+            return true
+        }
+        print("Did not create directory")
+        return false
+    }
     func createNewProjectDirectory() -> Bool
     {
         if createDirectory(at: .Documents, withName: name)
@@ -71,6 +81,11 @@ extension AppDirectoryNames
         //urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AppDirectories.Temp.rawValue) //"tmp")
     }
     
+    func sharedDirectoryURL() -> URL?
+    {
+        return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.excelsior")
+    }
+    
     func getURL(for directory: AppDirectories) -> URL
     {
         switch directory
@@ -83,6 +98,8 @@ extension AppDirectoryNames
             return libraryDirectoryURL()
         case .Temp:
             return tempDirectoryURL()
+        case .Shared:
+            return sharedDirectoryURL()!
         }
     }
     
@@ -193,6 +210,37 @@ extension AppFileManipulation
         print("Directory already exists. Choose a unique name for the project")
         return false
     }
+    
+    func createSharedDirectory(withName name: String) -> Bool{
+        let directoryPath = sharedDirectoryURL()
+        if directoryPath != nil
+        {
+            let applicationDirectory = (directoryPath?.path)! + "/Bottleneck"
+            if !FileManager.default.fileExists(atPath: applicationDirectory){
+                do{
+                    try FileManager.default.createDirectory(atPath: applicationDirectory, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch{
+                    NSLog("Error occured while creating project folder")
+                }
+            }
+            let filePath = applicationDirectory + "/" + name
+            if !FileManager.default.fileExists(atPath: filePath){
+                do
+                {
+                    try FileManager.default.createDirectory(atPath: filePath, withIntermediateDirectories: true, attributes: nil)
+                    return true
+                }
+                catch
+                {
+                    NSLog("Path already exists. Choose a unique name for the Project")
+                }
+            }
+        }
+        print("Directory already exists. Choose a unique name for the project")
+        return false
+    }
+    
     func writeFile(containing: String, to path: AppDirectories, withName name: String) -> Bool
     {
         let filePath = getURL(for: path).path + "/" + name
