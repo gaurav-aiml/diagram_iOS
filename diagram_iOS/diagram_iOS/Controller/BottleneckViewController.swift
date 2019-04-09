@@ -106,7 +106,7 @@ class BottleneckViewController: UIViewController {
         menuView.dataSource = self
         menuView.tableHeaderView = title
         view.addSubview(menuView)
-        menuView.register(MenuOptionCell2.self, forCellReuseIdentifier: cellId)
+        menuView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
         
         //auto layout constraint
@@ -141,12 +141,9 @@ extension BottleneckViewController: UITableViewDelegate, UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let  cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! MenuOptionCell2
+        let  cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let bottleneckFiles = BottleneckFiles()
-        
-        let menuOption = bottleneckFiles.FilesArray[indexPath.row]
-        cell.processName.text = menuOption.0
-        cell.outputCount.text = String(menuOption.1)
+        cell.textLabel?.text = bottleneckFiles.FilesArray[indexPath.row].0+" : "+String(bottleneckFiles.FilesArray[indexPath.row].1)
         return cell
     }
 }

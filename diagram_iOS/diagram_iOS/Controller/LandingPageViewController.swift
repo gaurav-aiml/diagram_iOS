@@ -92,10 +92,9 @@ class LandingPageViewController: UIViewController {
     func populateProjectList(){
         let obj = FileHandling(name: "")
         projectList = obj.listProjects()
-        projectListTable = UITableView()
-        projectListTable.delegate = self
-        projectListTable.dataSource = self
-        projectListTable.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        listController.tableView.delegate = self
+        listController.tableView.dataSource = self
+        listController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
     }
     
@@ -122,16 +121,13 @@ class LandingPageViewController: UIViewController {
         let alert = UIAlertController(title: "Choose your project", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         populateProjectList()
-        projectListTable.frame = CGRect(x: 0, y: 0, width: alert.view.frame.width, height: 500)
-        self.view.addSubview(projectListTable)
+        listController.view.frame = CGRect(x: 0, y: 0, width: alert.view.frame.width, height: 800)
         // Constraints for the projectListTable
-        listController.view.addSubview(projectListTable)
-        
         alert.setValue(listController, forKey: "contentViewController")
         
         
         
-//        listController.view.translatesAutoresizingMaskIntoConstraints = false
+//        projecttranslatesAutoresizingMaskIntoConstraints = false
 //        listController.view.leftAnchor.constraint(equalTo: alert.view.leftAnchor).isActive = true
 //        listController.view.rightAnchor.constraint(equalTo: alert.view.rightAnchor).isActive = true
 //        listController.view.topAnchor.constraint(equalTo: alert.view.topAnchor).isActive = true

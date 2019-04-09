@@ -10,7 +10,10 @@ protocol HomeControllerDelegate {
     
     func handleMenuToggle(forMenuOption menuOption: MenuOption?)
 }
-
+protocol menuActions {
+    
+    
+}
  // end protocol AppDirectoryNames
 
 protocol AppDirectoryNames {
