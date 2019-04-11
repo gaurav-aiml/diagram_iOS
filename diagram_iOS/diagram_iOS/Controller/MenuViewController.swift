@@ -14,7 +14,6 @@ class MenuViewController: UIViewController {
     
     var menuView : UITableView!
     var cellId = "menuCell"
-    var delegate: HomeControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +70,8 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let menuOption = MenuOption(rawValue: indexPath.row)
-        delegate?.handleMenuToggle(forMenuOption: menuOption)
+        print("Clicked Menu")
+        HomeViewController.delegate?.handleMenuToggle(forMenuOption: menuOption)
     }
 }
     

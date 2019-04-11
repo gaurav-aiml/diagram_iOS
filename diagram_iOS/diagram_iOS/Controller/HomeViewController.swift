@@ -47,6 +47,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     var firstCircle : CircleView? = nil
     var secondCircle : CircleView? = nil
     var jsonData : Data?
+    var oldjSONData : Data?
     static var uniqueProcessID = 0
     
     override func viewDidLoad() {
@@ -55,7 +56,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         configureNavigationBar()
         configureSlider()
         self.scrollView?.delegate = self
-        
+        ContainerViewController.menuDelegate = self
         // Do any additional setup after loading the view
         load_action()
     }
@@ -70,6 +71,8 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         navigationController?.navigationBar.barStyle = .blackTranslucent
         navigationItem.title = "Excelsior"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "options")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(didClickMenu))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "exit")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(didClickExit))
     }
     
     // Creates a drop zone which spans the enitre screen so that drop can be performed anywhere
@@ -102,7 +105,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     //Configure the scroll view
     func configureScrollView()
     {
-        self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 100, width: self.view.frame.width, height: self.view.frame.height))
+        self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         self.view.addSubview(scrollView!)
         self.scrollView!.backgroundColor = UIColor.blue
         
@@ -120,48 +123,37 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         self.scrollView?.showsVerticalScrollIndicator = false
         self.scrollView?.showsHorizontalScrollIndicator = false
         
-        let screenshotButton = UIButton(frame: CGRect(x: self.view.frame.width - 100, y: 60, width: 100, height: 40))
-        screenshotButton.setTitle("Screenshot", for: UIControl.State.normal)
-        screenshotButton.backgroundColor = UIColor.black
-        
-        self.view.addSubview(screenshotButton)
-        let screenshotGesture = UITapGestureRecognizer(target: self, action: #selector(take_screenshot))
-        screenshotGesture.numberOfTapsRequired = 1
-        screenshotGesture.delegate = self
-        screenshotButton.addGestureRecognizer(screenshotGesture)
-        
-        
-        let saveButton = UIButton(frame: CGRect(x: self.view.frame.width - 210, y: 60, width: 100, height: 40))
-        saveButton.setTitle("Save", for: UIControl.State.normal)
-        saveButton.backgroundColor = UIColor.black
-        
-        self.view.addSubview(saveButton)
-        let saveGesture = UITapGestureRecognizer(target: self, action: #selector(save_action))
-        saveGesture.numberOfTapsRequired = 1
-        saveGesture.delegate = self
-        saveButton.addGestureRecognizer(saveGesture)
-        
-        
-        let loadButton = UIButton(frame: CGRect(x: self.view.frame.width - 320, y: 60, width: 100, height: 40))
-        loadButton.setTitle("Load", for: UIControl.State.normal)
-        loadButton.backgroundColor = UIColor.black
+//        let screenshotButton = UIButton(frame: CGRect(x: self.view.frame.width - 100, y: 60, width: 100, height: 40))
+//        screenshotButton.setTitle("Screenshot", for: UIControl.State.normal)
+//        screenshotButton.backgroundColor = UIColor.black
+//
+//        self.view.addSubview(screenshotButton)
+//        let screenshotGesture = UITapGestureRecognizer(target: self, action: #selector(take_screenshot))
+//        screenshotGesture.numberOfTapsRequired = 1
+//        screenshotGesture.delegate = self
+//        screenshotButton.addGestureRecognizer(screenshotGesture)
+//
+//
+//        let saveButton = UIButton(frame: CGRect(x: self.view.frame.width - 210, y: 60, width: 100, height: 40))
+//        saveButton.setTitle("Save", for: UIControl.State.normal)
+//        saveButton.backgroundColor = UIColor.black
+//
+//        self.view.addSubview(saveButton)
+//        let saveGesture = UITapGestureRecognizer(target: self, action: #selector(save_action))
+//        saveGesture.numberOfTapsRequired = 1
+//        saveGesture.delegate = self
+//        saveButton.addGestureRecognizer(saveGesture)
+//
+//
+//        let loadButton = UIButton(frame: CGRect(x: self.view.frame.width - 320, y: 60, width: 100, height: 40))
+//        loadButton.setTitle("Load", for: UIControl.State.normal)
+//        loadButton.backgroundColor = UIColor.black
         
 //        self.view.addSubview(loadButton)
 //        let loadGesture = UITapGestureRecognizer(target: self, action: #selector(load_action))
 //        loadGesture.numberOfTapsRequired = 1
 //        loadGesture.delegate = self
 //        loadButton.addGestureRecognizer(loadGesture)
-        
-        
-        let bottleneckButton = UIButton(frame: CGRect(x: self.view.frame.width - 430, y: 60, width: 100, height: 40))
-        bottleneckButton.setTitle("Bottleneck", for: UIControl.State.normal)
-        bottleneckButton.backgroundColor = UIColor.black
-        
-        self.view.addSubview(bottleneckButton)
-        let bottleneckGesture = UITapGestureRecognizer(target: self, action: #selector(bottleneck_action))
-        bottleneckGesture.numberOfTapsRequired = 1
-        bottleneckGesture.delegate = self
-        bottleneckButton.addGestureRecognizer(bottleneckGesture)
         
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -239,14 +231,12 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         }
     }
     
-    @objc func save_action(_ sender: UITapGestureRecognizer) {
-        
+    func checkForChanges()
+    {
         let jsonEncoder = JSONEncoder()
-        //jsonEncoder.outputFormatting = .prettyPrinted
-        //        allData.allViews.removeAll()
         let allData = entireData()
-        
-        for view in data.views{
+        for view in data.views
+        {
             data.viewsAndData[view]?.text = view.textView.text
             data.viewsAndData[view]?.x = Double(view.frame.origin.x)
             data.viewsAndData[view]?.y = Double(view.frame.origin.y)
@@ -254,18 +244,24 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
             data.viewsAndData[view]?.height = Double(view.frame.height)
             allData.allViews.append(data.viewsAndData[view]!)
         }
-        
-        for arrow in data.arrows{
+        for arrow in data.arrows
+        {
             data.arrowsAndData[arrow]?.okText = arrow.okTextField.text ?? ""
             data.arrowsAndData[arrow]?.timeText = arrow.timeTextField.text ?? ""
             data.arrowsAndData[arrow]?.isExpanded = arrow.isExpanded
             allData.allArrows.append(data.arrowsAndData[arrow]!)
         }
         self.jsonData = try? jsonEncoder.encode(allData)
-        let path = getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
-        let fileName = LandingPageViewController.projectName+".excelsior"
-        writeFile(containing: String(data: jsonData!, encoding: .utf8)!, to: path, withName: fileName)
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
+        
+        let fileName = "/"+LandingPageViewController.projectName+"/"+LandingPageViewController.projectName+".excelsior"
+        let file = FileHandling(name: fileName)
+        
+        if file.findFile()
+        {
+            try? self.oldjSONData = Data(contentsOf: getURL(for: .Documents).appendingPathComponent(fileName), options: .uncachedRead)
+            print("Old Data restored")
+        }
     }
     
     func load_action()
@@ -282,6 +278,41 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
                 print(allData?.allArrows.count)
                 print(allData?.allViews.count)
                 restoreState(allData: allData!)
+            }
+        }
+    }
+    
+    func restoreState(allData: entireData){
+        data.reset()
+        for view in (dropZone?.subviews)!{
+            view.removeFromSuperview()
+        }
+        dropZone!.layer.sublayers = nil
+        dropZone?.addSubview(gridView)
+        
+        for viewData in allData.allViews{
+            add_a_shape(shape: viewData.shape, x: CGFloat(viewData.x), y: CGFloat(viewData.y
+            ), width: CGFloat(viewData.width), height: CGFloat(viewData.height), withID:  viewData.id, withText: viewData.text, withCircleID: [viewData.leftID,viewData.topID,viewData.rightID,viewData.bottomID])
+        }
+        disable_all()
+        
+        
+        for lineData in allData.allArrows{
+            let srcCircle = getCircleFromID(id: lineData.srcID)
+            let dstCircle = getCircleFromID(id: lineData.dstID)
+            
+            if srcCircle != nil, dstCircle != nil{
+                let arrowShape = (srcCircle?.lineTo(circle: dstCircle!))!
+                arrowShape.arrowID = lineData.id
+                arrowShape.setSubView(self.dropZone!)
+                arrowShape.createCircles(lineData.circleID)
+                arrowShape.circle?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(circlegesture)))
+                arrowShape.delete?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deletegesture)))
+                arrowShape.isExpanded = lineData.isExpanded
+                data.arrows.append(arrowShape)
+                data.idAndAny[arrowShape.arrowID!] = arrowShape
+                data.arrowsAndData[arrowShape] = arrowData(id: arrowShape.arrowID!, circleID: (arrowShape.circle?.circleID)!, srcID: (srcCircle?.circleID)!, dstID: (dstCircle?.circleID)!, isExpanded: lineData.isExpanded, okText: lineData.okText, timeText: lineData.timeText )
+                dropZone!.layer.addSublayer(arrowShape)
             }
         }
     }
@@ -318,14 +349,11 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         }
         demoView.delete?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deletegesture)))
         
-        demoView.btlneckBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottleneckgesture)))
-        
         data.viewsAndData[demoView] = uiViewData(x: Double(x), y: Double(y), width: Double(width), height: Double(height), shape: shape, text: demoView.textView.text, id: id, leftID: IDs[0], topID: IDs[1], rightID: IDs[2], bottomID: IDs[3])
         data.idAndAny[id] = demoView
         //        allData.allViews.append(uiViewData(x: Double(x), y: Double(y), width: Double(width), height: Double(height), shape: shape, leftLine: lineData(id: 0, isSrc: false), rightLine: lineData(id: 0, isSrc: false), topLine: lineData(id: 0, isSrc: false), bottomLine: lineData(id: 0, isSrc: false), text: demoView.textView.text))
         
     }
-    
     
     func disable_all() {
         for view in data.views {
@@ -352,6 +380,32 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     
     
     // MARK:- Gesture Handlers
+    
+    @objc func didClickExit(){
+        
+        checkForChanges()
+
+        if String(data: self.jsonData!, encoding: .utf8) == String(data: self.oldjSONData!, encoding: .utf8)
+        {
+            dismiss(animated: true)
+        }
+            
+        else
+        {
+            let alert = UIAlertController(title: "Exiting without saving changes!", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
+                ContainerViewController.menuDelegate?.saveViewState()
+                self.dismiss(animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { action in
+                self.dismiss(animated: true)
+            }))
+            
+            self.present(alert, animated: true)
+        }
+    }
+    
     @objc func didPan(sender: UIPanGestureRecognizer)
     {
         
@@ -386,7 +440,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     
     @objc func didClickMenu()
     {
-        print("Registered click")
         HomeViewController.delegate?.handleMenuToggle(forMenuOption: nil)
     }
     
@@ -454,25 +507,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         
     }
     
-    
-    @objc func bottleneckgesture(_ sender: UITapGestureRecognizer){
-        if isTimeSet == false {
-            let vc = setTimeViewController()
-            vc.delegate = self
-            self.navigationController?.pushViewController(vc,animated:true)
-        }
-        else{
-            let vc = recordBottleneckViewController()
-            let view = sender.view as? CircleView
-            vc.inputProcessView = view?.myView
-//            vc.seconds = Int(self.countdownValue!)
-            vc.seconds = 5
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
-    }
-    
-    
     //gesture to recognize tap in dropZone which contains all the diagrams
     @objc func singleTap(_ sender: UITapGestureRecognizer) {
         if firstCircle == nil{
@@ -507,61 +541,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         }
     }
     
-    @objc func bottleneck_action(_ sender: UITapGestureRecognizer) {
-        let vc = BottleneckViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
-    @objc func take_screenshot(_ sender: UITapGestureRecognizer) {
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-        
-        let imgPath = dropZone!.exportAsPdfFromView()
-        print("\(imgPath)")
-    }
-    
-    
-    
-    
-    func restoreState(allData: entireData){
-        data.reset()
-        for view in (dropZone?.subviews)!{
-            view.removeFromSuperview()
-        }
-        dropZone!.layer.sublayers = nil
-        dropZone?.addSubview(gridView)
-        
-        for viewData in allData.allViews{
-            add_a_shape(shape: viewData.shape, x: CGFloat(viewData.x), y: CGFloat(viewData.y
-            ), width: CGFloat(viewData.width), height: CGFloat(viewData.height), withID:  viewData.id, withText: viewData.text, withCircleID: [viewData.leftID,viewData.topID,viewData.rightID,viewData.bottomID])
-        }
-        disable_all()
-        
-        
-        for lineData in allData.allArrows{
-            let srcCircle = getCircleFromID(id: lineData.srcID)
-            let dstCircle = getCircleFromID(id: lineData.dstID)
-            
-            if srcCircle != nil, dstCircle != nil{
-                let arrowShape = (srcCircle?.lineTo(circle: dstCircle!))!
-                arrowShape.arrowID = lineData.id
-                arrowShape.setSubView(self.dropZone!)
-                arrowShape.createCircles(lineData.circleID)
-                arrowShape.circle?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(circlegesture)))
-                arrowShape.delete?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deletegesture)))
-                arrowShape.isExpanded = lineData.isExpanded
-                data.arrows.append(arrowShape)
-                data.idAndAny[arrowShape.arrowID!] = arrowShape
-                data.arrowsAndData[arrowShape] = arrowData(id: arrowShape.arrowID!, circleID: (arrowShape.circle?.circleID)!, srcID: (srcCircle?.circleID)!, dstID: (dstCircle?.circleID)!, isExpanded: lineData.isExpanded, okText: lineData.okText, timeText: lineData.timeText )
-                dropZone!.layer.addSublayer(arrowShape)
-            }
-        }
-    }
-    
     func getCircleFromID(id: Int) -> CircleView?{
         for view in data.views{
             for circle in view.circles{
@@ -578,7 +557,12 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         }
         return nil
     }
+
+// End of Class HomeViewController
 }
+
+
+// Extenstions
 
 extension UIImage {
     func isEqual(to image: UIImage) -> Bool {
@@ -609,6 +593,28 @@ extension CGRect {
     }
 }
 
+extension UIViewController {
+    
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x:0, y: 0, width: 150, height: 40))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = " "+message+" "
+        toastLabel.sizeToFit()
+        toastLabel.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height-75)
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    } }
 
 extension UIViewController {
     func showInputDialog(title:String? = nil,
@@ -638,14 +644,106 @@ extension UIViewController {
     }
 }
 
-
-extension HomeViewController: setTimeControllerDelegate
+extension HomeViewController: menuControllerDelegate
 {
+
+    func saveViewState() {
+
+        let jsonEncoder = JSONEncoder()
+        let allData = entireData()
+        for view in data.views{
+            data.viewsAndData[view]?.text = view.textView.text
+            data.viewsAndData[view]?.x = Double(view.frame.origin.x)
+            data.viewsAndData[view]?.y = Double(view.frame.origin.y)
+            data.viewsAndData[view]?.width = Double(view.frame.width)
+            data.viewsAndData[view]?.height = Double(view.frame.height)
+            allData.allViews.append(data.viewsAndData[view]!)
+        }
+
+        for arrow in data.arrows{
+            data.arrowsAndData[arrow]?.okText = arrow.okTextField.text ?? ""
+            data.arrowsAndData[arrow]?.timeText = arrow.timeTextField.text ?? ""
+            data.arrowsAndData[arrow]?.isExpanded = arrow.isExpanded
+            allData.allArrows.append(data.arrowsAndData[arrow]!)
+        }
+        self.jsonData = try? jsonEncoder.encode(allData)
+        
+        let path = getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
+        let fileName = LandingPageViewController.projectName+".excelsior"
+        if writeFile(containing: String(data: jsonData!, encoding: .utf8)!, to: path, withName: fileName) {
+            self.showToast(message: "Saved Successfully.")
+        }
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+    }
+
+    func saveViewStateAsNew() {
+        
+        let jsonEncoder = JSONEncoder()
+        let allData = entireData()
+        
+        for view in data.views
+        {
+            data.viewsAndData[view]?.text = view.textView.text
+            data.viewsAndData[view]?.x = Double(view.frame.origin.x)
+            data.viewsAndData[view]?.y = Double(view.frame.origin.y)
+            data.viewsAndData[view]?.width = Double(view.frame.width)
+            data.viewsAndData[view]?.height = Double(view.frame.height)
+            allData.allViews.append(data.viewsAndData[view]!)
+        }
+        
+        for arrow in data.arrows
+        {
+            data.arrowsAndData[arrow]?.okText = arrow.okTextField.text ?? ""
+            data.arrowsAndData[arrow]?.timeText = arrow.timeTextField.text ?? ""
+            data.arrowsAndData[arrow]?.isExpanded = arrow.isExpanded
+            allData.allArrows.append(data.arrowsAndData[arrow]!)
+        }
+        self.jsonData = try? jsonEncoder.encode(allData)
+        
+        
+        
+        let alert = UIAlertController(title: "Enter the name of the Project", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "The name should be unique"
+        })
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            if ((alert.textFields?.first?.text) != nil)
+            {
+                LandingPageViewController.projectName = alert.textFields!.first!.text!
+                let directory = FileHandling(name: LandingPageViewController.projectName)
+                if directory.createNewProjectDirectory()
+                {
+                    print("Directory successfully created!")
+                    let path = self.getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
+                    let fileName = LandingPageViewController.projectName+".excelsior"
+                    if self.writeFile(containing: String(data: self.jsonData!, encoding: .utf8)!, to: path, withName: fileName)
+                    {
+                        self.showToast(message: "Saved Successfully")
+                    }
+                }
+            }
+        }))
+        self.present(alert, animated: true)
+    }
     
-    func setCountdown(with value: Double)
+    func takeScreenShot()
     {
-        self.isTimeSet = true
-        self.countdownValue = value
-        print("time in home is \(self.countdownValue)")
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        
+        self.showToast(message: "Screenshot captured!")
+    }
+    
+    func exportAsPDF()
+    {
+        let imgPath = dropZone!.exportAsPdfFromView(name: LandingPageViewController.projectName)
+        print("\(imgPath)")
+        self.showToast(message: "PDF created successfully")
     }
 }
+    
+

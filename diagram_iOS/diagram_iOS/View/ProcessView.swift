@@ -25,7 +25,6 @@ class processView: UIView , UIGestureRecognizerDelegate {
     var delete : CircleView?
     var processID : Int?
     var myText :String?
-    var btlneckBtn : CircleView!
     //    let mytapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(myTapAction))
     
     
@@ -242,12 +241,6 @@ class processView: UIView , UIGestureRecognizerDelegate {
         self.delete = del
         superview?.addSubview(del)
         
-        btlneckBtn = CircleView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), ofType: "bottleneck")
-        btlneckBtn?.center = CGPoint(x: self.center.x + (self.bounds.size.width / 2) + 20 , y: self.center.y - (self.bounds.size.height / 2) - 20)
-        btlneckBtn?.myView = self
-        btlneckBtn?.backgroundColor = .clear
-        superview?.addSubview(btlneckBtn)
-        
     }
     
     func update_circle_views(){
@@ -256,7 +249,6 @@ class processView: UIView , UIGestureRecognizerDelegate {
         circles[2].center = CGPoint(x: self.center.x + (self.bounds.size.width / 2) + 20 , y: self.center.y)
         circles[3].center = CGPoint(x: self.center.x, y: self.center.y + (self.bounds.size.height / 2) + 20)
         delete?.center = CGPoint(x: self.center.x - (self.bounds.size.width / 2) - 20 , y: self.center.y - (self.bounds.size.height / 2) - 20)
-        btlneckBtn.center = CGPoint(x: self.center.x + (self.bounds.size.width / 2) + 20 , y: self.center.y - (self.bounds.size.height / 2) - 20)
         
         
         circles[0].mainPoint = CGPoint(x: self.center.x - (self.bounds.size.width / 2) , y: self.center.y)

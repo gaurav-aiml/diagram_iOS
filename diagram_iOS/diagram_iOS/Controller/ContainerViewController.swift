@@ -19,7 +19,7 @@ class ContainerViewController: UIViewController {
     var homeViewController: UIViewController!
     var navController : UIViewController!
     var isExpanded = false
-    
+    static var menuDelegate : menuControllerDelegate?
     
     override func viewDidLoad() {
     
@@ -114,18 +114,14 @@ class ContainerViewController: UIViewController {
     
     func didSelectMenuOption(forMenuOption menuOption: MenuOption){
         switch menuOption{
-        case .Profile:
-            print("pro")
-        case .Load:
-            print("load")
-        case .SaveAs:
-            print("hello")
         case .Save:
-            print("hi")
+            ContainerViewController.menuDelegate!.saveViewState()
+        case .SaveAs:
+            ContainerViewController.menuDelegate!.saveViewStateAsNew()
         case .Screenshot:
-            print("how")
-        case .Recents:
-            print("are you")
+            ContainerViewController.menuDelegate!.takeScreenShot()
+        case .ExportPDF:
+            ContainerViewController.menuDelegate!.exportAsPDF()
         }
     }
     
