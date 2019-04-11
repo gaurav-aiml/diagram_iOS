@@ -9,35 +9,28 @@
 import UIKit
 
 enum MenuOption: Int, CustomStringConvertible{
-    case Profile
-    case Load
-    case SaveAs
     case Save
+    case SaveAs
     case Screenshot
-    case Recents
+    case ExportPDF
     
     var description: String
     {
         switch self
         {
-        case .Profile: return "Profile"
-        case .Load: return "Load"
-        case .SaveAs: return "Save As"
         case .Save: return "Save"
+        case .SaveAs: return "Save As"
         case .Screenshot: return "Screenshot"
-        case .Recents: return "Recents"
-        
+        case .ExportPDF: return "Export as PDF"
         }
     }
     
     var image: UIImage{
         switch self {
-        case .Profile: return UIImage(named: "profile") ?? UIImage()
-        case .Load: return UIImage(named: "load") ?? UIImage()
-        case .SaveAs: return UIImage(named: "saveas") ?? UIImage()
-        case .Save: return UIImage(named: "save") ?? UIImage()
+        case .Save: return UIImage(named: "saveas") ?? UIImage()
+        case .SaveAs: return UIImage(named: "save") ?? UIImage()
         case .Screenshot: return UIImage(named: "screenshot") ?? UIImage()
-        case .Recents: return UIImage(named: "recent") ?? UIImage()
+        case .ExportPDF: return UIImage(named: "profile") ?? UIImage()
         }
     }
 }
