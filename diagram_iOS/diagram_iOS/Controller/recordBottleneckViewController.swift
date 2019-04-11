@@ -179,11 +179,11 @@ extension recordBottleneckViewController : AppFileManipulation, AppFileStatusChe
         print(documentsDirectoryURL())
         var text = notesField.text!
         let path = getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
-        if !writeFile(containing: text, to: path, withName: "\(LandingPageViewController.projectName)/\(fileName).notes") {
+        if !writeFile(containing: text, to: path, withName: "\(fileName).notes") {
             print("Error writing notes file to documents")
         }
         text = "\(inputProcessView.textView.text!)$$\(outputField.text!)"
-        if !writeFile(containing: text, to: path, withName: "\(LandingPageViewController.projectName)/\(fileName).count") {
+        if !writeFile(containing: text, to: path, withName: "\(fileName).count") {
             print("Error writing count file to documents")
         }
     }

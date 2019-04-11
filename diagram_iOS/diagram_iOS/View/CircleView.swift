@@ -107,7 +107,7 @@ class CircleView : UIView , UIGestureRecognizerDelegate {
         //        let arrow = UIBezierPath.arrow2(from: (self.mainPoint)!, to: (circle.mainPoint)!, circle1: self, circle2: circle)
         
         let (arrow, midPoint, isHorizontal) = UIBezierPath.arrow3(points: points,tailWidth: 10, headWidth: 10, headLength: 30)
-        
+        print("mid point horizontal is ", isHorizontal)
         let shapeLayer = ArrowShape(withPoint: midPoint, inputCircle: self, outputCircle: circle)
         let (arrow2, _, _) = UIBezierPath.arrow3(points: points,tailWidth: 1, headWidth: 3, headLength: 5)
         shapeLayer.alternatePath = arrow2.cgPath

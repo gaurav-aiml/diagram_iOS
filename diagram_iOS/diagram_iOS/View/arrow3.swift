@@ -36,7 +36,7 @@ extension UIBezierPath {
             
             
             if idx == 0 && idx != lines.count - 1 {
-                print("start")
+                //print("start")
                 if dx == 0{
                     finalPoints1.append(p(start.x + signOf(dy) * tailWidth, start.y))
                     finalPoints2.append(p(start.x - signOf(dy) * tailWidth, start.y))
@@ -52,7 +52,7 @@ extension UIBezierPath {
                 }
             }
             else if idx == 0 && idx == lines.count - 1{
-                print("only one line")
+                //print("only one line")
                 if dx == 0{
                     finalPoints1.append(p(start.x + signOf(dy) * tailWidth, start.y))
                     finalPoints2.append(p(start.x - signOf(dy) * tailWidth, start.y))
@@ -72,7 +72,7 @@ extension UIBezierPath {
                 }
             }
             else if idx < lines.count - 1{
-                print("middle")
+                //print("middle")
                 if dx == 0{
                     //            finalPoints1.append(p(start.x + signOf(dy) * tailWidth, start.y - signOf(dy)*tailWidth))
                     //            finalPoints2.append(p(start.x - signOf(dy) * tailWidth, start.y + signOf(dy)*tailWidth))
@@ -88,7 +88,7 @@ extension UIBezierPath {
                 }
             }
             else{
-                print("end")
+                //print("end")
                 if dx == 0{
                     //            finalPoints1.append(p(line[0].x + signOf(dy)*tailWidth, line[0].y))
                     //            finalPoints2.append(p(line[0].x - signOf(dy)*tailWidth, line[0].y))
@@ -178,7 +178,7 @@ private func find_lines(points: [CGPoint]) -> ([[CGPoint]], CGPoint, Bool){
         }
         if point.x == prev?.x && horizontal == false{
             if vertical == true{
-                print("took horizontal")
+                //print("took horizontal")
                 end = prev
                 lines.append([start!,end!])
                 start = prev
@@ -191,7 +191,7 @@ private func find_lines(points: [CGPoint]) -> ([[CGPoint]], CGPoint, Bool){
         }
         if point.y == prev?.y && vertical == false{
             if horizontal == true{
-                print("took vertical")
+                //print("took vertical")
                 end = prev
                 lines.append([start!,end!])
                 start = prev

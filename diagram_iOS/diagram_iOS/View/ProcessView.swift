@@ -269,11 +269,29 @@ class processView: UIView , UIGestureRecognizerDelegate {
             if let _ = circle.outGoingCircle, let line = circle.outGoingLine, let _ = circle.outGoingLine?.path {
                 line.path = circle.getPath(circle: circle.outGoingCircle!)
                 line.thinArrow.path = circle.getPath(circle: circle.outGoingCircle!, getAlternate: true)
+                if let _ = line.circle?.outGoingCircle, let line2 = line.circle?.outGoingLine, let _ = line.circle?.outGoingLine?.path {
+                    line2.path = line.circle?.getPath(circle: (line.circle?.outGoingCircle!)!)
+                    line2.thinArrow.path = line.circle?.getPath(circle: line.circle!.outGoingCircle!, getAlternate: true)
+                }
+                
+                if let _ = line.circle?.inComingCircle, let line2 = line.circle?.inComingLine, let _ = line.circle?.inComingLine?.path {
+                    line2.path = line.circle?.inComingCircle!.getPath(circle: (line.circle)!)
+                    line2.thinArrow.path = line.circle?.inComingCircle!.getPath(circle: (line.circle)!, getAlternate: true)
+                }
             }
             
             if let _ = circle.inComingCircle, let line = circle.inComingLine, let _ = circle.inComingLine?.path {
                 line.path = circle.inComingCircle!.getPath(circle: circle)
                 line.thinArrow.path = circle.inComingCircle!.getPath(circle: circle, getAlternate: true)
+                if let _ = line.circle?.outGoingCircle, let line2 = line.circle?.outGoingLine, let _ = line.circle?.outGoingLine?.path {
+                    line2.path = line.circle?.getPath(circle: (line.circle?.outGoingCircle!)!)
+                    line2.thinArrow.path = line.circle?.getPath(circle: line.circle!.outGoingCircle!, getAlternate: true)
+                }
+                
+                if let _ = line.circle?.inComingCircle, let line2 = line.circle?.inComingLine, let _ = line.circle?.inComingLine?.path {
+                    line2.path = line.circle?.inComingCircle!.getPath(circle: (line.circle)!)
+                    line2.thinArrow.path = line.circle?.inComingCircle!.getPath(circle: (line.circle)!, getAlternate: true)
+                }
             }
         }
     }
@@ -480,6 +498,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
             circle.isHidden = true
         }
         self.delete?.isHidden = true
+        self.btlneckBtn.isHidden = true
     }
     
     func enable_resize() {
@@ -491,6 +510,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
             }
         }
         self.delete?.isHidden = false
+        self.btlneckBtn.isHidden = false
     }
     
     //double tap to enable/disable resize

@@ -107,6 +107,7 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
     func createCircles(_ id: Int){
         circle = CircleView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), isSide: sides.onArrow.rawValue, withID: id)
         circle?.mainPoint = midPoint
+        circle?.myLayer = self
         delete = CircleView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), ofType: "delete")
         delete?.myLayer = self
         
@@ -231,12 +232,17 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
     @objc func tapTime(_ sender: UITapGestureRecognizer){
         print("Time gesture called")
         
-        UIApplication.shared.keyWindow?.rootViewController!.showInputDialog(title: "Add Time",
-                                                                            subtitle: "Please enter the time below.",
-                                                                            actionTitle: "Add",
-                                                                            cancelTitle: "Cancel",
-                                                                            inputPlaceholder: "Time in hours",
-                                                                            inputKeyboardType: .numberPad)
+        var topController = UIApplication.shared.keyWindow!.rootViewController as! UIViewController
+        while ((topController.presentedViewController) != nil) {
+            topController = topController.presentedViewController!;
+        }
+        
+        topController.showInputDialog(title: "Add Time",
+                                        subtitle: "Please enter the time below.",
+                                        actionTitle: "Add",
+                                        cancelTitle: "Cancel",
+                                        inputPlaceholder: "Time in hours",
+                                        inputKeyboardType: .numberPad)
         { (input:String?) in
             if input != ""{
                 self.timeTextField.isHidden = false
@@ -280,6 +286,7 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
     
     
     func updateViews(withPoint point: CGPoint){
+        circle?.mainPoint = midPoint
         //        self.point = withPoint
         //        self.point = midPoint
         //        circle?.mainPoint = point
@@ -331,7 +338,7 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
     
     
     static func getArrowpoints(inSide: sides.RawValue, outSide: sides.RawValue, from circle1: CircleView, to circle2: CircleView) -> [CGPoint] {
-        
+        print(inSide, outSide, circle1.myLayer?.isHorizontal, circle2.myLayer?.isHorizontal)
         func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { return CGPoint(x: x, y: y) }
         
         let start = circle1.mainPoint!
@@ -346,27 +353,70 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
         switch inSide {
         case sides.left.rawValue:
             _start = CGPoint(x: start.x - 40, y: start.y)
+            break
         case sides.right.rawValue:
             _start = CGPoint(x: start.x + 40, y: start.y)
+            break
         case sides.top.rawValue:
             _start = CGPoint(x: start.x, y: start.y - 40)
+            break
         case sides.bottom.rawValue:
             _start = CGPoint(x: start.x, y: start.y + 40)
+            break
         default:
-            _start = start
+            print("in default")
+            if circle1.myLayer?.isHorizontal == true{
+                if start.y > end.y{
+                    _start = CGPoint(x: start.x, y: start.y - 40)
+                }
+                else{
+                    _start = CGPoint(x: start.x, y: start.y + 40)
+                }
+            }
+            else{
+                if start.x > end.x{
+                    _start = CGPoint(x: start.x - 40, y: start.y)
+                }
+                else{
+                    _start = CGPoint(x: start.x + 40, y: start.y)
+                }
+            }
+            break
+            
         }
         
         switch outSide {
         case sides.left.rawValue:
             _end = CGPoint(x: end.x - 40, y: end.y)
+            break
         case sides.right.rawValue:
             _end = CGPoint(x: end.x + 40, y: end.y)
+            break
         case sides.top.rawValue:
             _end = CGPoint(x: end.x, y: end.y - 40)
+            break
         case sides.bottom.rawValue:
             _end = CGPoint(x: end.x, y: end.y + 40)
+            break
         default:
-            _end = end
+            print("out default")
+            if circle2.myLayer?.isHorizontal == true{
+                if start.y > end.y{
+                    _end = CGPoint(x: end.x, y: end.y + 40)
+                }
+                else{
+                    _end = CGPoint(x: end.x, y: end.y - 40)
+                }
+            }
+            else{
+                if start.x > end.x{
+                    _end = CGPoint(x: end.x + 40, y: end.y)
+                }
+                else{
+                    _end = CGPoint(x: end.x - 40, y: end.y)
+                }
+            }
+            break
         }
         let dx = _start.x - _end.x
         let dy = _start.y - _end.y
