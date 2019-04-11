@@ -9,7 +9,7 @@
 import UIKit
 
 class ContainerViewController: UIViewController {
-
+    
     
     
     // MARK: - Properties
@@ -19,9 +19,10 @@ class ContainerViewController: UIViewController {
     var homeViewController: UIViewController!
     var navController : UIViewController!
     var isExpanded = false
+    static var menuDelegate : menuControllerDelegate?
     
     override func viewDidLoad() {
-    
+        
         super.viewDidLoad()
         configureHomeController()
         configureBlurEffect()
@@ -31,16 +32,16 @@ class ContainerViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     // MARK: - Handlers
     
@@ -64,18 +65,18 @@ class ContainerViewController: UIViewController {
         didMove(toParent: self)
     }
     
-//    func setupHomeViewLayout(){
-//
-//        let homeView = homeViewController.view!
-//        navController.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-//        navController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-//        navController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-//        navController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-//    }
+    //    func setupHomeViewLayout(){
+    //
+    //        let homeView = homeViewController.view!
+    //        navController.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+    //        navController.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    //        navController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+    //        navController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+    //    }
     
     func configureMenuController()
     {
-         
+        
         if menuViewController == nil
         {
             menuViewController = MenuViewController()
@@ -108,23 +109,19 @@ class ContainerViewController: UIViewController {
             }
             
         }
-
+        
     }
     
     func didSelectMenuOption(forMenuOption menuOption: MenuOption){
         switch menuOption{
-        case .Profile:
-            print("pro")
-        case .Load:
-            print("load")
-        case .SaveAs:
-            print("hello")
         case .Save:
-            print("hi")
+            ContainerViewController.menuDelegate!.saveViewState()
+        case .SaveAs:
+            ContainerViewController.menuDelegate!.saveViewStateAsNew()
         case .Screenshot:
-            print("how")
-        case .Recents:
-            print("are you")
+            ContainerViewController.menuDelegate!.takeScreenShot()
+        case .ExportPDF:
+            ContainerViewController.menuDelegate!.exportAsPDF()
         }
     }
     
