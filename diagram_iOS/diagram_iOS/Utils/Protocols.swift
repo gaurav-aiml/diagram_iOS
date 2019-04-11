@@ -10,8 +10,15 @@ protocol HomeControllerDelegate {
     
     func handleMenuToggle(forMenuOption menuOption: MenuOption?)
 }
-
- // end protocol AppDirectoryNames
+protocol menuControllerDelegate {
+    
+    func saveViewState()
+    func saveViewStateAsNew()
+    func takeScreenShot()
+    func exportAsPDF()
+    
+}
+// end protocol AppDirectoryNames
 
 protocol AppDirectoryNames {
     func documentsDirectoryURL() -> URL
