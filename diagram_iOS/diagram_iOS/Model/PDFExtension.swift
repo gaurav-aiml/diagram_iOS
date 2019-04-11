@@ -11,24 +11,23 @@ import UIKit
 extension UIView {
     
     // Export pdf from Save pdf in drectory and return pdf file path
-    func exportAsPdfFromView() -> String {
+    func exportAsPdfFromView(name forName: String) -> String {
         scaler(v: self)
         let pdfPageFrame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
         let pdfData = NSMutableData()
         UIGraphicsBeginPDFContextToData(pdfData, pdfPageFrame, nil)
         UIGraphicsBeginPDFPageWithInfo(pdfPageFrame, nil)
         guard let pdfContext = UIGraphicsGetCurrentContext() else { return "" }
-//        pdfContext.scaleBy(x: 1/8, y: 1/8)
+        //        pdfContext.scaleBy(x: 1/8, y: 1/8)
         self.layer.render(in: pdfContext)
         UIGraphicsEndPDFContext()
-        return self.saveViewPdf(data: pdfData)
+        return self.saveViewPdf(data: pdfData, name: forName)
         
     }
     
     func exportAsImage(){
         scaler(v: self)
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 8)
-        self.layer.contentsScale = 8
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, true, 8)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -43,11 +42,10 @@ extension UIView {
     }
     
     // Save pdf file in document directory
-    func saveViewPdf(data: NSMutableData) -> String {
-        
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let docDirectoryPath = paths[0]
-        let pdfPath = docDirectoryPath.appendingPathComponent("viewPdf.pdf")
+    func saveViewPdf(data: NSMutableData, name: String) -> String {
+        let file = FileHandling(name: "")
+        let docDirectoryPath =  file.buildFullPath(forFileName: name, inDirectory: .Documents)
+        let pdfPath = docDirectoryPath.appendingPathComponent(name+".pdf")
         if data.write(to: pdfPath, atomically: true) {
             return pdfPath.path
         } else {
