@@ -62,7 +62,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
         borderlayer.strokeColor = UIColor.black.cgColor
         borderlayer.fillColor = nil
         borderlayer.lineDashPattern = [8, 6]
-        borderlayer.lineDashPattern?.reduce(0) { $0 - $1.intValue } ?? 0
+//        borderlayer.lineDashPattern?.reduce(0) { $0 - $1.intValue } ?? 0
         self.layer.addSublayer(borderlayer)
         let animation = CABasicAnimation(keyPath: "lineDashPhase")
         animation.fromValue = 0
@@ -174,6 +174,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
         textView.textContainer.maximumNumberOfLines = 3
         //        textView.isScrollEnabled = false
         //textView.textContainer.exclusionPaths = [path]
+
         textView.layer.contentsScale = 10
         self.addSubview(textView)
         
@@ -257,34 +258,14 @@ class processView: UIView , UIGestureRecognizerDelegate {
         circles[3].mainPoint = CGPoint(x: self.center.x , y: self.center.y + (self.bounds.size.height / 2))
         
         for circle in circles{
-            if let outGoingCircle = circle.outGoingCircle, let line = circle.outGoingLine, let path = circle.outGoingLine?.path {
-                //                let newPath = UIBezierPath(cgPath: path)
-                //                newPath.removeAllPoints()
-                //                newPath.move(to: circle.mainPoint!)
-                //                newPath.addLine(to: outGoingCircle.mainPoint!)
-                //                line.path = newPath.cgPath
-                //                if !line.setAlternatePath{
+            if let _ = circle.outGoingCircle, let line = circle.outGoingLine, let _ = circle.outGoingLine?.path {
                 line.path = circle.getPath(circle: circle.outGoingCircle!)
                 line.thinArrow.path = circle.getPath(circle: circle.outGoingCircle!, getAlternate: true)
-                //                }else{
-                //                    line.alternatePath = circle.getPath(circle: circle.outGoingCircle!)
-                //                    line.path = circle.getPath(circle: circle.outGoingCircle!, getAlternate: true)
-                //                }
             }
             
-            if let inComingCircle = circle.inComingCircle, let line = circle.inComingLine, let path = circle.inComingLine?.path {
-                //                let newPath = UIBezierPath(cgPath: path)
-                //                newPath.removeAllPoints()
-                //                newPath.move(to: inComingCircle.mainPoint!)
-                //                newPath.addLine(to: circle.mainPoint!)
-                //                line.path = newPath.cgPath
-                //                if !line.setAlternatePath{
+            if let _ = circle.inComingCircle, let line = circle.inComingLine, let _ = circle.inComingLine?.path {
                 line.path = circle.inComingCircle!.getPath(circle: circle)
                 line.thinArrow.path = circle.inComingCircle!.getPath(circle: circle, getAlternate: true)
-                //                }else{
-                //                    line.alternatePath = circle.inComingCircle!.getPath(circle: circle)
-                //                    line.path = circle.inComingCircle!.getPath(circle: circle, getAlternate: true)
-                //                }
             }
         }
     }
