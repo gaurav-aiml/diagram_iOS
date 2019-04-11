@@ -32,12 +32,12 @@ class LandingPageViewController: UIViewController {
         return button
     }
     
-//    var recentsButton : UIButton {
-//        let button = UIButton(type: .custom)
-//        button.setImage(UIImage(named: "recent100"), for: .normal)
-//        button.addTarget(self, action: #selector(openNewDoc), for: .touchUpInside)
-//        return button
-//    }
+    //    var recentsButton : UIButton {
+    //        let button = UIButton(type: .custom)
+    //        button.setImage(UIImage(named: "recent100"), for: .normal)
+    //        button.addTarget(self, action: #selector(openNewDoc), for: .touchUpInside)
+    //        return button
+    //    }
     
     
     
@@ -48,19 +48,19 @@ class LandingPageViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .blackOpaque
         navigationItem.title = "Excelsior"
         addButtons()
-
+        
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     
     func addButtons()
@@ -103,19 +103,19 @@ class LandingPageViewController: UIViewController {
     
     
     func setNavigationBar() {
-//        let screenSize: CGRect = UIScreen.main.bounds
-//        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 80))
-//        let navItem = UINavigationItem(title: "")
-//        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(createSegue))
-//        navItem.rightBarButtonItem = doneItem
-//        navBar.setItems([navItem], animated: false)
-//        self.view.addSubview(navBar)
+        //        let screenSize: CGRect = UIScreen.main.bounds
+        //        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 80))
+        //        let navItem = UINavigationItem(title: "")
+        //        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(createSegue))
+        //        navItem.rightBarButtonItem = doneItem
+        //        navBar.setItems([navItem], animated: false)
+        //        self.view.addSubview(navBar)
     }
     
-
     
-
-// OBJC Action Handlers
+    
+    
+    // OBJC Action Handlers
     @objc func loadExistingDoc()
     {
         let alert = UIAlertController(title: "Choose your project", message: nil, preferredStyle: .alert)
@@ -127,19 +127,19 @@ class LandingPageViewController: UIViewController {
         
         
         
-//        projecttranslatesAutoresizingMaskIntoConstraints = false
-//        listController.view.leftAnchor.constraint(equalTo: alert.view.leftAnchor).isActive = true
-//        listController.view.rightAnchor.constraint(equalTo: alert.view.rightAnchor).isActive = true
-//        listController.view.topAnchor.constraint(equalTo: alert.view.topAnchor).isActive = true
-//        listController.view.bottomAnchor.constraint(equalTo: alert.view.bottomAnchor).isActive = true
+        //        projecttranslatesAutoresizingMaskIntoConstraints = false
+        //        listController.view.leftAnchor.constraint(equalTo: alert.view.leftAnchor).isActive = true
+        //        listController.view.rightAnchor.constraint(equalTo: alert.view.rightAnchor).isActive = true
+        //        listController.view.topAnchor.constraint(equalTo: alert.view.topAnchor).isActive = true
+        //        listController.view.bottomAnchor.constraint(equalTo: alert.view.bottomAnchor).isActive = true
         
         self.present(alert, animated: true)
         
-    
+        
     }
     
     @objc func openNewDoc(){
-//        print("clicked")
+        //        print("clicked")
         
         let alert = UIAlertController(title: "Enter the name of the Project", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -149,22 +149,22 @@ class LandingPageViewController: UIViewController {
         })
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler:
-        { action in
-            if ((alert.textFields?.first?.text) != nil)
-            {
-                LandingPageViewController.projectName = alert.textFields?.first?.text as! String
+            { action in
+                if ((alert.textFields?.first?.text) != nil)
+                {
+                    LandingPageViewController.projectName = alert.textFields?.first?.text as! String
                     let directory = FileHandling(name: LandingPageViewController.projectName)
                     if directory.createNewProjectDirectory()
                     {
-                            print("Directory successfully created!")
-                            let cont = ContainerViewController()
-                            self.present(cont, animated: true)
+                        print("Directory successfully created!")
+                        let cont = ContainerViewController()
+                        self.present(cont, animated: true)
                     }
-            }
+                }
         }))
         self.present(alert, animated: true)
     }
-
+    
 }
 
 extension LandingPageViewController: UITableViewDelegate, UITableViewDataSource
