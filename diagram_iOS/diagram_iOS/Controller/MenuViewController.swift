@@ -9,22 +9,21 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-
+    
     
     
     var menuView : UITableView!
     var cellId = "menuCell"
-    var delegate: HomeControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         congifureMenuView()
-
+        
         // Do any additional setup after loading the view.
     }
     
     func congifureMenuView(){
-//
+        //
         menuView = UITableView()
         menuView.delegate = self
         menuView.dataSource = self
@@ -42,18 +41,18 @@ class MenuViewController: UIViewController {
         menuView.rowHeight = 90
     }
 }
-    /*
-    // MARK: - Navigation
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using segue.destination.
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    //MAKR: - Handlers
-    
+//MAKR: - Handlers
+
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -71,10 +70,11 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let menuOption = MenuOption(rawValue: indexPath.row)
-        delegate?.handleMenuToggle(forMenuOption: menuOption)
+        print("Clicked Menu")
+        HomeViewController.delegate?.handleMenuToggle(forMenuOption: menuOption)
     }
 }
-    
+
 class MenuOptionCell: UITableViewCell {
     
     //MARK: - Properties
