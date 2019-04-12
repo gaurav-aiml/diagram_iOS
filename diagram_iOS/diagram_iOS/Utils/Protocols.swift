@@ -6,6 +6,12 @@
 //  Copyright © 2019 Gaurav Pai. All rights reserved.
 //
 import Foundation
+
+protocol resizeDropzoneDelegate {
+    func resizeDropZone()
+}
+
+
 protocol HomeControllerDelegate {
     
     func handleMenuToggle(forMenuOption menuOption: MenuOption?)
