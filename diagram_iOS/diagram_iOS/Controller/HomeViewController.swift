@@ -740,20 +740,21 @@ extension HomeViewController: menuControllerDelegate
     
     func takeScreenShot()
     {
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-        
+        self.gridView.isHidden = true
+        self.dropZone.exportAsImage()
         self.showToast(message: "Screenshot captured!")
+        self.gridView.isHidden = false
+
     }
     
     func exportAsPDF()
     {
+        self.gridView.isHidden = true
         let imgPath = dropZone!.exportAsPdfFromView(name: LandingPageViewController.projectName)
         print("\(imgPath)")
         self.showToast(message: "PDF created successfully")
+        self.gridView.isHidden = false
+
     }
 }
     
