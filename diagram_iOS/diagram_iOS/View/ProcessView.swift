@@ -12,6 +12,10 @@ class processView: UIView , UIGestureRecognizerDelegate {
     
     var shape: String?
     
+    
+    
+    
+    
     var kResizeThumbSize : CGFloat = 45.0
     var isResizingLR = false
     var isResizingUL = false
@@ -25,6 +29,9 @@ class processView: UIView , UIGestureRecognizerDelegate {
     var delete : CircleView?
     var processID : Int?
     var myText :String?
+    var resizeDelegate : resizeDropzoneDelegate?
+    
+   
     //    let mytapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(myTapAction))
     
     
@@ -426,6 +433,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
             self.subviews[0].center = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
             self.borderlayer.path =  UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 20, height: 20)).cgPath
             update_circle_views()
+            resizeDelegate?.resizeDropZone()
             //            let scroll = self.superview?.superview as! UIScrollView
             //            scroll.isScrollEnabled = true
             return
@@ -452,6 +460,8 @@ class processView: UIView , UIGestureRecognizerDelegate {
         self.subviews[0].center = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
         self.borderlayer.path =  UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 20, height: 20)).cgPath
         update_circle_views()
+        resizeDelegate?.resizeDropZone()
+
         
         //        let scroll = self.superview?.superview as! UIScrollView
         //        scroll.isScrollEnabled = true
