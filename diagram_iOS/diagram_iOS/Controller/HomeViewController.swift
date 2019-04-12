@@ -602,11 +602,11 @@ extension UIViewController {
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;
         toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
-        toastLabel.text = " "+message+" "
+        toastLabel.text = "  "+message+"  "
         toastLabel.sizeToFit()
         toastLabel.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height-75)
         toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 10;
+        toastLabel.layer.cornerRadius = 5;
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
@@ -646,6 +646,14 @@ extension UIViewController {
 
 extension HomeViewController: menuControllerDelegate
 {
+    func moveToTrash() {
+        
+    }
+    
+    func listTrashItems() {
+    
+    }
+    
 
     func saveViewState() {
 

@@ -16,6 +16,8 @@ protocol menuControllerDelegate {
     func saveViewStateAsNew()
     func takeScreenShot()
     func exportAsPDF()
+    func moveToTrash()
+    func listTrashItems()
     
 }
  // end protocol AppDirectoryNames

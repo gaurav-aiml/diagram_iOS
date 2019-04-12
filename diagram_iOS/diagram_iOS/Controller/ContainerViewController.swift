@@ -122,6 +122,10 @@ class ContainerViewController: UIViewController {
             ContainerViewController.menuDelegate!.takeScreenShot()
         case .ExportPDF:
             ContainerViewController.menuDelegate!.exportAsPDF()
+        case .Delete:
+            ContainerViewController.menuDelegate!.moveToTrash()
+        case .Trash:
+            ContainerViewController.menuDelegate!.listTrashItems()
         }
     }
     
