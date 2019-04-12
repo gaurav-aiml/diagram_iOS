@@ -333,6 +333,8 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
                                                  height: height), ofShape: shape, withID: id, withText: text)
         data.views.append(demoView) // keep track
         
+        demoView.resizeDelegate = self
+
         
         demoView.isUserInteractionEnabled = true
         
@@ -352,6 +354,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         data.viewsAndData[demoView] = uiViewData(x: Double(x), y: Double(y), width: Double(width), height: Double(height), shape: shape, text: demoView.textView.text, id: id, leftID: IDs[0], topID: IDs[1], rightID: IDs[2], bottomID: IDs[3])
         data.idAndAny[id] = demoView
         //        allData.allViews.append(uiViewData(x: Double(x), y: Double(y), width: Double(width), height: Double(height), shape: shape, leftLine: lineData(id: 0, isSrc: false), rightLine: lineData(id: 0, isSrc: false), topLine: lineData(id: 0, isSrc: false), bottomLine: lineData(id: 0, isSrc: false), text: demoView.textView.text))
+        resizeDropZone()
         
     }
     
@@ -755,3 +758,36 @@ extension HomeViewController: menuControllerDelegate
 }
     
 
+extension HomeViewController: resizeDropzoneDelegate
+{
+    func resizeDropZone() {
+        print("Resize called")
+        
+        var maxX : CGFloat = self.view.frame.width
+        var maxY : CGFloat = self.view.frame.height
+        for view in data.views{
+            maxX = maxX < view.center.x ? view.center.x : maxX
+            maxY = maxY < view.center.y ? view.center.y : maxY
+        }
+        
+        maxX = (maxX + 500).rounded(to: 50)
+        maxY = (maxY + 500).rounded(to: 50)
+        
+        let zoom = scrollView!.zoomScale
+        
+        self.scrollView!.contentSize = CGSize(width: maxX*zoom, height: maxY*zoom)
+        
+        
+        //self.dummyView.frame = CGRect(x: 0, y: 0, width: maxX*zoom, height: maxY*zoom)
+        self.dropZone.frame =  CGRect(x: 0, y: 0, width: maxX*zoom, height: maxY*zoom)
+        
+        
+        gridView.removeFromSuperview()
+        gridView = GridView(frame : CGRect(x: 0, y: 0, width: maxX, height: maxY))
+        gridView.backgroundColor = UIColor.clear
+        gridView.isUserInteractionEnabled = false
+        dropZone!.addSubview(gridView)
+        dropZone.sendSubviewToBack(gridView)
+        
+    }
+}
