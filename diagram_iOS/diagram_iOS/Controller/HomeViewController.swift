@@ -20,6 +20,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     //slider variables
     private var sliderUpOffset: CGFloat!
     private var sliderUp: CGPoint!
+    private var sliderUpIndicator = false
     private var sliderDown: CGPoint!
     private var sliderCenter: CGPoint!
     private var slideView : UIView!
@@ -27,6 +28,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     private let width = UIScreen.main.bounds.width
     private var isTimeSet = false
     private var countdownValue: Double?
+    private var sliderButton = UIButton()
     
     //drop variables
     private let shapes = ["rectangle", "triangle", "circle", "rhombus"]
@@ -93,13 +95,24 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         view.addSubview(slideViewController.view)
         slideView = slideViewController.view
         
+        sliderButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+        
+        // Configure sliderButton constraints
+        slideView.addSubview(sliderButton)
+        sliderButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        sliderButton.center = CGPoint(x: slideView.frame.width/2, y: 27)
+        sliderButton.isUserInteractionEnabled = true
+        
+        sliderButton.addTarget(self, action: #selector(didClickSliderButton), for: .touchUpInside)
+        
         //Creating the panGesture for slider
         sliderUpOffset = height/3
         sliderUp = CGPoint(x: slideView.center.x, y: slideView.center.y - height/3 + 55)
         sliderDown = slideView.center
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(sender:)))
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(sender:)))
         slideView.isUserInteractionEnabled = true
-        slideView.addGestureRecognizer(panGestureRecognizer)
+        
+//        slideView.addGestureRecognizer(panGestureRecognizer)
     }
     
     //Configure the scroll view
@@ -395,13 +408,13 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
             
         else
         {
-            let alert = UIAlertController(title: "Exiting without saving changes!", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Are you sure you want to exit without saving changes?", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: "Save & Exit", style: .default, handler: { action in
                 ContainerViewController.menuDelegate?.saveViewState()
                 self.dismiss(animated: true)
             }))
-            alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { action in
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
                 self.dismiss(animated: true)
             }))
             
@@ -409,37 +422,56 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         }
     }
     
-    @objc func didPan(sender: UIPanGestureRecognizer)
+    @objc func didClickSliderButton()
     {
-        
-        let velocity = sender.velocity(in: view)
-        let translation = sender.translation(in: view)
-        
-        if sender.state == .began
+        if !sliderUpIndicator
         {
-            sliderCenter = slideView.center
-            print("Gesture began")
+            UIView.animate(withDuration: 0.3, animations: {() -> Void in self.slideView.center = self.sliderUp })
+            sliderButton.setImage(#imageLiteral(resourceName: "down"), for: .normal)
             
         }
-        else if sender.state == .changed
+        else
         {
-            slideView.center = CGPoint(x: sliderCenter.x, y: sliderCenter.y + translation.y)
-            print("Gesture is changing")
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in self.slideView.center = self.sliderDown})
+            sliderButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+            
         }
-        else if sender.state == .ended
-        {
-            if velocity.y > 0
-            {
-                UIView.animate(withDuration: 0.8, animations: { () -> Void in self.slideView.center = self.sliderDown})
-            }
-            else
-            {
-                UIView.animate(withDuration: 0.8, animations: {() -> Void in self.slideView.center = self.sliderUp })
-            }
-            print("Gesture ended")
-        }
-        
+        sliderUpIndicator = !sliderUpIndicator
+
     }
+    
+    
+//    @objc func didPan(sender: UIPanGestureRecognizer)
+//    {
+//
+//        let velocity = sender.velocity(in: view)
+//        let translation = sender.translation(in: view)
+//
+//        if sender.state == .began
+//        {
+//            sliderCenter = slideView.center
+//            print("Gesture began")
+//
+//        }
+//        else if sender.state == .changed
+//        {
+//            slideView.center = CGPoint(x: sliderCenter.x, y: sliderCenter.y + translation.y)
+//            print("Gesture is changing")
+//        }
+//        else if sender.state == .ended
+//        {
+//            if velocity.y > 0
+//            {
+//                UIView.animate(withDuration: 0.8, animations: { () -> Void in self.slideView.center = self.sliderDown})
+//            }
+//            else
+//            {
+//                UIView.animate(withDuration: 0.8, animations: {() -> Void in self.slideView.center = self.sliderUp })
+//            }
+//            print("Gesture ended")
+//        }
+//
+//    }
     
     @objc func didClickMenu()
     {
@@ -521,6 +553,8 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         firstCircle = nil
         print("touches in viewcontroller")
         UIView.animate(withDuration: 0.2, animations: { () -> Void in self.slideView.center = self.sliderDown})
+        sliderUpIndicator = false
+        sliderButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
         
     }
     

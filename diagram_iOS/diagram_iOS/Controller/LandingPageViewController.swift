@@ -18,7 +18,8 @@ class LandingPageViewController: UIViewController {
     var cellId = "projectlistcell"
     
     
-    var createButton : UIButton {
+    var createButton : UIButton
+    {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "createNew"), for: .normal)
         button.addTarget(self, action: #selector(openNewDoc), for: .touchUpInside)
