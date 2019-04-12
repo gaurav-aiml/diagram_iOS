@@ -69,7 +69,6 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
     
     
     override init() {
-        print("init arrow")
         super.init()
         self.fillColor = UIColor.clear.cgColor
         self.strokeColor = UIColor.clear.cgColor
@@ -84,7 +83,6 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
     }
     
     override init(layer: Any) {
-        print("override init arrow")
         super.init(layer: layer)
         
         guard layer is ArrowShape else { return }
@@ -338,7 +336,6 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
     
     
     static func getArrowpoints(inSide: sides.RawValue, outSide: sides.RawValue, from circle1: CircleView, to circle2: CircleView) -> [CGPoint] {
-        print(inSide, outSide, circle1.myLayer?.isHorizontal, circle2.myLayer?.isHorizontal)
         func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { return CGPoint(x: x, y: y) }
         
         let start = circle1.mainPoint!
@@ -364,7 +361,6 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
             _start = CGPoint(x: start.x, y: start.y + 40)
             break
         default:
-            print("in default")
             if circle1.myLayer?.isHorizontal == true{
                 if start.y > end.y{
                     _start = CGPoint(x: start.x, y: start.y - 40)
@@ -399,7 +395,6 @@ class ArrowShape: CAShapeLayer, UIGestureRecognizerDelegate {
             _end = CGPoint(x: end.x, y: end.y + 40)
             break
         default:
-            print("out default")
             if circle2.myLayer?.isHorizontal == true{
                 if start.y > end.y{
                     _end = CGPoint(x: end.x, y: end.y + 40)

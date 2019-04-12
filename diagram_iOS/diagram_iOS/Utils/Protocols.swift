@@ -16,7 +16,13 @@ protocol menuControllerDelegate {
     func saveViewStateAsNew()
     func takeScreenShot()
     func exportAsPDF()
+    func startDebottling()
+    func setTimerForDebottling()
     
+}
+
+protocol resizeDropzoneDelegate {
+    func resizeDropZone()
 }
 // end protocol AppDirectoryNames
 

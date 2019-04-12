@@ -122,6 +122,10 @@ class ContainerViewController: UIViewController {
             ContainerViewController.menuDelegate!.takeScreenShot()
         case .ExportPDF:
             ContainerViewController.menuDelegate!.exportAsPDF()
+        case .SetTimer:
+            ContainerViewController.menuDelegate!.setTimerForDebottling()
+        case .Debottling:
+            ContainerViewController.menuDelegate!.startDebottling()
         }
     }
     

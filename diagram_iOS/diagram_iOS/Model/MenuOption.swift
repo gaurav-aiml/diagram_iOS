@@ -13,6 +13,8 @@ enum MenuOption: Int, CustomStringConvertible{
     case SaveAs
     case Screenshot
     case ExportPDF
+    case SetTimer
+    case Debottling
     
     var description: String
     {
@@ -22,6 +24,8 @@ enum MenuOption: Int, CustomStringConvertible{
         case .SaveAs: return "Save As"
         case .Screenshot: return "Screenshot"
         case .ExportPDF: return "Export as PDF"
+        case .SetTimer: return "Set Timer Value"
+        case .Debottling: return "Start Debottling"
         }
     }
     
@@ -31,6 +35,8 @@ enum MenuOption: Int, CustomStringConvertible{
         case .SaveAs: return UIImage(named: "save") ?? UIImage()
         case .Screenshot: return UIImage(named: "screenshot") ?? UIImage()
         case .ExportPDF: return UIImage(named: "profile") ?? UIImage()
+        case .SetTimer: return UIImage(named: "settimer") ?? UIImage()
+        case .Debottling: return UIImage(named: "debottling") ?? UIImage()
         }
     }
 }

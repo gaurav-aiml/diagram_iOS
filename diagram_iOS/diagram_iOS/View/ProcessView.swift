@@ -31,6 +31,8 @@ class processView: UIView , UIGestureRecognizerDelegate {
     
     var path: UIBezierPath!
     var main_layer: CAShapeLayer!
+    var resizeDelegate : resizeDropzoneDelegate?
+    
     
     convenience init(frame: CGRect, ofShape: String, withID id: Int, withText text: String) {
         self.init(frame: frame)
@@ -177,6 +179,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
         //textView.textContainer.exclusionPaths = [path]
         
         textView.layer.contentsScale = 10
+        textView.contentScaleFactor = 10
         self.addSubview(textView)
         
     }
@@ -452,6 +455,8 @@ class processView: UIView , UIGestureRecognizerDelegate {
             self.subviews[0].center = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
             self.borderlayer.path =  UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 20, height: 20)).cgPath
             update_circle_views()
+            resizeDelegate?.resizeDropZone()
+
             //            let scroll = self.superview?.superview as! UIScrollView
             //            scroll.isScrollEnabled = true
             return
@@ -478,7 +483,7 @@ class processView: UIView , UIGestureRecognizerDelegate {
         self.subviews[0].center = CGPoint(x: self.bounds.size.width / 2, y: self.bounds.size.height / 2)
         self.borderlayer.path =  UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 20, height: 20)).cgPath
         update_circle_views()
-        
+        resizeDelegate?.resizeDropZone()
         //        let scroll = self.superview?.superview as! UIScrollView
         //        scroll.isScrollEnabled = true
     }

@@ -18,15 +18,17 @@ class setTimeViewController: UIViewController {
         super.viewDidLoad()
         timeDial = UIDatePicker()
         timeDial.backgroundColor = .white
-        timeDial.center = self.view.center
+        timeDial.center = CGPoint(x: 150, y: timeDial.frame.height/2)
         timeDial.datePickerMode = .countDownTimer
         self.view.backgroundColor = .white
         self.view.addSubview(timeDial)
         
+        print(self.view.frame)
         doneBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         doneBtn.backgroundColor = .black
+        doneBtn.layer.cornerRadius = 5
         doneBtn.setTitle("Done", for: UIControl.State.normal)
-        doneBtn.center = CGPoint(x: self.view.center.x, y: self.view.center.y + 200)
+        doneBtn.center = CGPoint(x: 150, y: 300 - 25)
         doneBtn.addTarget(self, action: #selector(doneGesture), for: .touchUpInside)
         self.view.addSubview(doneBtn)
         // Do 	any additional setup after loading the view.
@@ -37,7 +39,8 @@ class setTimeViewController: UIViewController {
         let value = timeDial.countDownDuration
         timeSet = value.magnitude
         self.delegate?.setCountdown(with: timeSet!)
-        self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+        //self.navigationController?.popViewController(animated: true)
     }
     
     

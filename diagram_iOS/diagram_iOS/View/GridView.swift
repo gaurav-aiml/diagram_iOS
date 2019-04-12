@@ -17,6 +17,7 @@ class GridView: UIView {
     var path1 : UIBezierPath!
     var path2 : UIBezierPath!
     
+    
     override func draw(_ rect: CGRect) {
         numberOfRows = Int(self.frame.height/50)
         numberOfColumns = Int(self.frame.width/50)
@@ -95,3 +96,4 @@ class GridView: UIView {
         }
     }
 }
+

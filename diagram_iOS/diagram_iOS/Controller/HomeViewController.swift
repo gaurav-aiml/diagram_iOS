@@ -43,6 +43,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     var scrollView: UIScrollView?
     //    var dropZone: UIView?
     var gridView: GridView!
+    var dummyView: UIView!
     //variables that falicitate drawing arrows between two pluses(circle view with plus image inside)
     var firstCircle : CircleView? = nil
     var secondCircle : CircleView? = nil
@@ -75,13 +76,13 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "exit")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(didClickExit))
     }
     
-    // Creates a drop zone which spans the enitre screen so that drop can be performed anywhere
-    func createDropZone()
-    {
-        dropZone = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 3, height: self.view.frame.height * 3))
-        scrollView!.addSubview(dropZone)
-        dropZone.backgroundColor = .white
-    }
+//    // Creates a drop zone which spans the enitre screen so that drop can be performed anywhere
+//    func createDropZone()
+//    {
+//        dropZone = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width * 3, height: self.view.frame.height * 3))
+//        scrollView!.addSubview(dropZone)
+//        dropZone.backgroundColor = .white
+//    }
     
     //Creating the slider and applying Pan gesture to it
     func configureSlider(){
@@ -107,13 +108,17 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     {
         self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         self.view.addSubview(scrollView!)
-        self.scrollView!.backgroundColor = UIColor.blue
+        self.scrollView!.backgroundColor = UIColor.gray
         
         self.scrollView?.delegate = self
         
-        self.scrollView!.contentSize = CGSize(width: self.view.frame.width.rounded(to: 50) * 3, height: self.view.frame.height.rounded(to: 50) * 3)
-        self.dropZone = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width.rounded(to: 50) * 3, height: self.view.frame.height.rounded(to: 50) * 3))
+        self.scrollView!.contentSize = CGSize(width: self.view.frame.width.rounded(to: 50), height: self.view.frame.height.rounded(to: 50))
+        self.dropZone = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width.rounded(to: 50), height: self.view.frame.height.rounded(to: 50)))
+        
+        self.dummyView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width.rounded(to: 50), height: self.view.frame.height.rounded(to: 50)))
         self.scrollView!.addSubview(dropZone!)
+        self.dummyView.backgroundColor = .clear
+        //self.dummyView.addSubview(dropZone)
         self.dropZone!.backgroundColor = UIColor.white
         self.scrollView?.canCancelContentTouches = false
         //set appropriate zoom scale for the scroll view
@@ -122,39 +127,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         self.scrollView!.setZoomScale(1.0, animated: true)
         self.scrollView?.showsVerticalScrollIndicator = false
         self.scrollView?.showsHorizontalScrollIndicator = false
-        
-        //        let screenshotButton = UIButton(frame: CGRect(x: self.view.frame.width - 100, y: 60, width: 100, height: 40))
-        //        screenshotButton.setTitle("Screenshot", for: UIControl.State.normal)
-        //        screenshotButton.backgroundColor = UIColor.black
-        //
-        //        self.view.addSubview(screenshotButton)
-        //        let screenshotGesture = UITapGestureRecognizer(target: self, action: #selector(take_screenshot))
-        //        screenshotGesture.numberOfTapsRequired = 1
-        //        screenshotGesture.delegate = self
-        //        screenshotButton.addGestureRecognizer(screenshotGesture)
-        //
-        //
-        //        let saveButton = UIButton(frame: CGRect(x: self.view.frame.width - 210, y: 60, width: 100, height: 40))
-        //        saveButton.setTitle("Save", for: UIControl.State.normal)
-        //        saveButton.backgroundColor = UIColor.black
-        //
-        //        self.view.addSubview(saveButton)
-        //        let saveGesture = UITapGestureRecognizer(target: self, action: #selector(save_action))
-        //        saveGesture.numberOfTapsRequired = 1
-        //        saveGesture.delegate = self
-        //        saveButton.addGestureRecognizer(saveGesture)
-        //
-        //
-        //        let loadButton = UIButton(frame: CGRect(x: self.view.frame.width - 320, y: 60, width: 100, height: 40))
-        //        loadButton.setTitle("Load", for: UIControl.State.normal)
-        //        loadButton.backgroundColor = UIColor.black
-        
-        //        self.view.addSubview(loadButton)
-        //        let loadGesture = UITapGestureRecognizer(target: self, action: #selector(load_action))
-        //        loadGesture.numberOfTapsRequired = 1
-        //        loadGesture.delegate = self
-        //        loadButton.addGestureRecognizer(loadGesture)
-        
+//        setZoomScale()
         // Do any additional setup after loading the view, typically from a nib.
         
         
@@ -181,6 +154,15 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         
         dropZone!.addSubview(gridView)
         
+    }
+
+    func setZoomScale() {
+        let imageViewSize = dropZone.bounds.size
+        let scrollViewSize = scrollView!.bounds.size
+        let widthScale = scrollViewSize.width / imageViewSize.width
+        let heightScale = scrollViewSize.height / imageViewSize.height
+        scrollView!.minimumZoomScale = max(widthScale, heightScale)
+        //scrollView.zoomScale = 1.0
     }
     
     
@@ -275,8 +257,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
             let decodedData = try? jsonDecoder.decode(entireData.self, from: self.jsonData!)
             if decodedData != nil {
                 let allData = decodedData
-                print(allData?.allArrows.count)
-                print(allData?.allViews.count)
+
                 restoreState(allData: allData!)
             }
         }
@@ -335,7 +316,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         
         
         demoView.isUserInteractionEnabled = true
-        
+        demoView.resizeDelegate = self
         dropZone!.addSubview(demoView)
         
         //create the pluses around the view. need to do it here inorder to add it to its superview. which will only be assigned after addSubview above
@@ -348,12 +329,17 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
             circle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(circlegesture)))
         }
         demoView.delete?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deletegesture)))
+        demoView.btlneckBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottleneckgesture)))
         
         data.viewsAndData[demoView] = uiViewData(x: Double(x), y: Double(y), width: Double(width), height: Double(height), shape: shape, text: demoView.textView.text, id: id, leftID: IDs[0], topID: IDs[1], rightID: IDs[2], bottomID: IDs[3])
         data.idAndAny[id] = demoView
+        
+        resizeDropZone()
         //        allData.allViews.append(uiViewData(x: Double(x), y: Double(y), width: Double(width), height: Double(height), shape: shape, leftLine: lineData(id: 0, isSrc: false), rightLine: lineData(id: 0, isSrc: false), topLine: lineData(id: 0, isSrc: false), bottomLine: lineData(id: 0, isSrc: false), text: demoView.textView.text))
         
     }
+    
+    
     
     func disable_all() {
         for view in data.views {
@@ -366,7 +352,6 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        print("zooming in")
         return self.dropZone!
     }
     
@@ -484,6 +469,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
                 circle.removeFromSuperview()
                 
             }
+            del?.myView?.btlneckBtn.removeFromSuperview()
             data.views.removeObjFromArray(object: del?.myView)
             let Viewdata = data.viewsAndData[(del?.myView)!]
             //            idAndView.removeValue(forKey: Viewdata!.id)
@@ -506,6 +492,23 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         
         
     }
+    
+    
+    @objc func bottleneckgesture(_ sender: UITapGestureRecognizer){
+        if isTimeSet == false {
+            self.showToast(message: "Set Debottling Timer First in the menu")
+        }
+        else{
+            let vc = recordBottleneckViewController()
+            let view = sender.view as? CircleView
+            vc.inputProcessView = view?.myView
+            //            vc.seconds = Int(self.countdownValue!)
+            vc.seconds = 5
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
+    
     
     //gesture to recognize tap in dropZone which contains all the diagrams
     @objc func singleTap(_ sender: UITapGestureRecognizer) {
@@ -602,14 +605,14 @@ extension UIViewController {
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;
         toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
-        toastLabel.text = " "+message+" "
+        toastLabel.text = "  "+message+"  "
         toastLabel.sizeToFit()
         toastLabel.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height-75)
         toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 10;
+        toastLabel.layer.cornerRadius = 5;
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
@@ -643,6 +646,41 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
+
+extension HomeViewController: resizeDropzoneDelegate
+{
+    func resizeDropZone() {
+        print("Resize called")
+
+        var maxX : CGFloat = self.view.frame.width
+        var maxY : CGFloat = self.view.frame.height
+        for view in data.views{
+            maxX = maxX < view.center.x ? view.center.x : maxX
+            maxY = maxY < view.center.y ? view.center.y : maxY
+        }
+        
+        maxX = (maxX + 500).rounded(to: 50)
+        maxY = (maxY + 500).rounded(to: 50)
+
+        let zoom = scrollView!.zoomScale
+
+        self.scrollView!.contentSize = CGSize(width: maxX*zoom, height: maxY*zoom)
+
+        
+        //self.dummyView.frame = CGRect(x: 0, y: 0, width: maxX*zoom, height: maxY*zoom)
+        self.dropZone.frame =  CGRect(x: 0, y: 0, width: maxX*zoom, height: maxY*zoom)
+
+
+        gridView.removeFromSuperview()
+        gridView = GridView(frame : CGRect(x: 0, y: 0, width: maxX, height: maxY))
+        gridView.backgroundColor = UIColor.clear
+        gridView.isUserInteractionEnabled = false
+        dropZone!.addSubview(gridView)
+        dropZone.sendSubviewToBack(gridView)
+
+    }
+}
+
 
 extension HomeViewController: menuControllerDelegate
 {
@@ -729,20 +767,43 @@ extension HomeViewController: menuControllerDelegate
     
     func takeScreenShot()
     {
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        self.gridView.isHidden = true
+        self.dropZone.exportAsImage()
         
         self.showToast(message: "Screenshot captured!")
+        self.gridView.isHidden = false
     }
     
     func exportAsPDF()
     {
+        self.gridView.isHidden = true
         let imgPath = dropZone!.exportAsPdfFromView(name: LandingPageViewController.projectName)
         print("\(imgPath)")
         self.showToast(message: "PDF created successfully")
+        self.gridView.isHidden = false
+    }
+    
+    func startDebottling(){
+        let vc = BottleneckViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setTimerForDebottling(){
+        let popoverVC = setTimeViewController()
+        popoverVC.delegate = self
+        
+        popoverVC.modalPresentationStyle = .popover
+        popoverVC.preferredContentSize = CGSize(width: 300, height: 300)
+        if let popoverController = popoverVC.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: 0, y: 0, width: self.view.frame.width , height: self.view.frame.height/2)
+            popoverController.permittedArrowDirections = .any
+            //popoverController.delegate = self
+            //popoverVC.delegate = self
+        }
+        present(popoverVC, animated: true, completion: nil)
+//            self.navigationController?.pushViewController(popoverVC,animated:true)
+
     }
 }
 
@@ -757,6 +818,6 @@ extension HomeViewController: setTimeControllerDelegate
     {
         self.isTimeSet = true
         self.countdownValue = value
-        print("time in home is \(self.countdownValue)")
+        self.showToast(message: "Timer value set to \(String(describing: value)) seconds")
     }
 }

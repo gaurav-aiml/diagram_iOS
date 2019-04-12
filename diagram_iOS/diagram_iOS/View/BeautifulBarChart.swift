@@ -35,6 +35,9 @@ class BeautifulBarChart: UIView {
                     showEntry(index: i, entry: dataEntries[i])
                 }
             }
+            mainLayer.sublayers?.forEach({$0.contentsScale = 8})
+            mainLayer.contentsScale = 8
+            self.contentScaleFactor = 8
         }
     }
     

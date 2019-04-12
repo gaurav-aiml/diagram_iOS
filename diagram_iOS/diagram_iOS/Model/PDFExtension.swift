@@ -12,7 +12,7 @@ extension UIView {
     
     // Export pdf from Save pdf in drectory and return pdf file path
     func exportAsPdfFromView(name forName: String) -> String {
-        scaler(v: self)
+        scaler(view: self)
         let pdfPageFrame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
         let pdfData = NSMutableData()
         UIGraphicsBeginPDFContextToData(pdfData, pdfPageFrame, nil)
@@ -26,19 +26,37 @@ extension UIView {
     }
     
     func exportAsImage(){
-        scaler(v: self)
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, true, 8)
-        self.layer.render(in: UIGraphicsGetCurrentContext()!)
+        //scaler(view: self)
+        // Create the image context to draw in
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
+        // Get that context
+        // Draw the image view in the context
+        defer { UIGraphicsEndImageContext() }
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        // You may or may not need to repeat the above with the imageView's subviews // Then you grab the "screenshot" of the context
         let image = UIGraphicsGetImageFromCurrentImageContext()
+        // Be sure to end the context
+        
         UIGraphicsEndImageContext()
+//
+//        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
+//        //self.layer.contentsScale = 8
+//        self.layer.render(in: UIGraphicsGetCurrentContext()!)
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
         UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
     }
     
-    func scaler(v: UIView) {
-        v.contentScaleFactor = 8
-        for sv in v.subviews {
-            scaler(v: sv)
+    func scaler(view: UIView) {
+//        view.layer.contentsScale = 8
+        view.contentScaleFactor = 8
+        for subView in view.subviews {
+            scaler(view: subView)
         }
+//        let subLayerArray = view.layer.sublayers
+//        for subLayer in subLayerArray ?? []{
+//            subLayer.contentsScale = 8
+//        }
     }
     
     // Save pdf file in document directory

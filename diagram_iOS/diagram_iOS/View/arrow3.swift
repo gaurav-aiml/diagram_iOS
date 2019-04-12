@@ -21,14 +21,14 @@ extension UIBezierPath {
             
             var nextLine = [CGPoint]()
             var nextEnd: CGPoint!
-            var nextStart: CGPoint!
+//            var nextStart: CGPoint!
             var ddx: CGFloat!
             var ddy: CGFloat!
             
             if idx != lines.count - 1 {
                 nextLine = lines[idx + 1]
                 nextEnd = nextLine[1]
-                nextStart = nextLine[0]
+//                nextStart = nextLine[0]
                 ddx = end.x - nextEnd.x
                 ddy = end.y - nextEnd.y
                 

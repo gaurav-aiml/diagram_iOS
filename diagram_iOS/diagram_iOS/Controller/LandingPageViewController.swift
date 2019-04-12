@@ -121,7 +121,8 @@ class LandingPageViewController: UIViewController {
         let alert = UIAlertController(title: "Choose your project", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         populateProjectList()
-        listController.view.frame = CGRect(x: 0, y: 0, width: alert.view.frame.width, height: 800)
+//        listController.view.frame = CGRect(x: 0, y: 0, width: alert.view.frame.width, height: 800)
+        listController.preferredContentSize = CGSize(width: alert.view.frame.width, height: 400)
         // Constraints for the projectListTable
         alert.setValue(listController, forKey: "contentViewController")
         
@@ -152,7 +153,7 @@ class LandingPageViewController: UIViewController {
             { action in
                 if ((alert.textFields?.first?.text) != nil)
                 {
-                    LandingPageViewController.projectName = alert.textFields?.first?.text as! String
+                    LandingPageViewController.projectName = (alert.textFields?.first?.text)!
                     let directory = FileHandling(name: LandingPageViewController.projectName)
                     if directory.createNewProjectDirectory()
                     {
