@@ -85,6 +85,7 @@ class BottleneckViewController: UIViewController {
                 self.menuView.isHidden = false
                 self.nextButton.setTitle("Next", for : UIControl.State.normal)
                 self.basicBarChart.isHidden = true
+                self.alternateChart.isHidden = true
                 self.titleLabel.isHidden = true
             }
         }	
