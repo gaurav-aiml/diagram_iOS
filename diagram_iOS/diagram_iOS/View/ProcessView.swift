@@ -8,7 +8,7 @@
 
 import UIKit
 
-class processView: UIView , UIGestureRecognizerDelegate {
+class processView: UIView , UIGestureRecognizerDelegate, UITextViewDelegate {
     
     var shape: String?
     
@@ -181,12 +181,17 @@ class processView: UIView , UIGestureRecognizerDelegate {
         textView.textContainer.maximumNumberOfLines = 3
         //        textView.isScrollEnabled = false
         //textView.textContainer.exclusionPaths = [path]
-
+        textView.delegate = self
         textView.layer.contentsScale = 10
         self.addSubview(textView)
         
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "Insert Text"{
+            textView.text = ""
+        }
+    }
 //    func createTextView_1() {
 //
 //        textLabel.text = "Hello"
