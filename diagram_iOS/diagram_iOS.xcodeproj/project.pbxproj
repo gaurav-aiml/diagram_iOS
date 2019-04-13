@@ -29,6 +29,7 @@
 		3FC956812244C44100FF31B2 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567A2244C44100FF31B2 /* CircleView.swift */; };
 		3FC956822244C44100FF31B2 /* ShapeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9567B2244C44100FF31B2 /* ShapeCell.swift */; };
 		3FC956842244C44A00FF31B2 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC956832244C44A00FF31B2 /* Protocols.swift */; };
+		3FD481AE2261A5C100E176E0 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD481AD2261A5C100E176E0 /* TemplateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		3FC9567A2244C44100FF31B2 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		3FC9567B2244C44100FF31B2 /* ShapeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeCell.swift; sourceTree = "<group>"; };
 		3FC956832244C44A00FF31B2 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		3FD481AD2261A5C100E176E0 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				3FC956672244C42C00FF31B2 /* MenuViewController.swift */,
 				3FC956662244C42C00FF31B2 /* SlideViewController.swift */,
 				3F0BF9722251E78E0039BB6D /* LandingPageViewController.swift */,
+				3FD481AD2261A5C100E176E0 /* TemplateViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				3F15B80D2259D98B00901805 /* GridView.swift in Sources */,
 				3F15B80E2259D98B00901805 /* ArrowShape.swift in Sources */,
 				3FC9566C2244C42C00FF31B2 /* MenuViewController.swift in Sources */,
+				3FD481AE2261A5C100E176E0 /* TemplateViewController.swift in Sources */,
 				3FA9C1A022548867001B10C5 /* FileHandling.swift in Sources */,
 				3FC9567D2244C44100FF31B2 /* PDFExtension.swift in Sources */,
 				3FC9566E2244C42C00FF31B2 /* ContainerViewController.swift in Sources */,

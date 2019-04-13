@@ -401,8 +401,8 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     @objc func didClickExit(){
         
         checkForChanges()
-
-        if String(data: self.jsonData!, encoding: .utf8) == String(data: self.oldjSONData!, encoding: .utf8)
+        
+        if self.jsonData != nil, self.oldjSONData != nil, String(data: self.jsonData!, encoding: .utf8) == String(data: self.oldjSONData!, encoding: .utf8)
         {
             dismiss(animated: true)
         }
