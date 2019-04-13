@@ -363,6 +363,9 @@ class processView: UIView , UIGestureRecognizerDelegate {
         //        scroll.isScrollEnabled = false
         //see if the resize has to happen, if so in which direction.
         self.textView.resignFirstResponder()
+        self.alpha = 0.2
+        self.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+//        self.frame = CGRect(x: self.frame.origin.x - 20, y: self.frame.origin.y - 20, width: self.frame.width + 40, height: self.frame.height + 40)
         //        if self.borderlayer.isHidden{
         //            return
         //        }
@@ -399,6 +402,8 @@ class processView: UIView , UIGestureRecognizerDelegate {
         //        let midPoint = self.center.rounded(to: 50)
         //
         //        self.center = midPoint
+        self.alpha = 1
+        self.transform = CGAffineTransform.identity
         let new_frame = CGRect(x: self.frame.origin.x.rounded(to: 50)-10, y: self.frame.origin.y.rounded(to: 50)-10, width: self.frame.width.rounded(to: 50)+20, height :self.frame.height.rounded(to: 50)+20)
         self.frame = new_frame
         
@@ -407,12 +412,15 @@ class processView: UIView , UIGestureRecognizerDelegate {
         update_main_layer()
         update_circle_views()
         
+
         //        let scroll = self.superview?.superview as! UIScrollView
         //        scroll.isScrollEnabled = true
     }
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         //        let scroll = self.superview?.superview as! UIScrollView
         //        scroll.isScrollEnabled = true
+        self.alpha = 1
+        self.transform = CGAffineTransform.identity
     }
     
     //handle the resize, pan and move all the view appropriately

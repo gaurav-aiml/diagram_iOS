@@ -104,6 +104,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         sliderButton.isUserInteractionEnabled = true
         
         sliderButton.addTarget(self, action: #selector(didClickSliderButton), for: .touchUpInside)
+        sliderButton.addTarget(self, action: #selector(didClickSliderButton), for: .touchDragOutside)
         
         //Creating the panGesture for slider
         sliderUpOffset = height/3
@@ -427,13 +428,20 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         if !sliderUpIndicator
         {
             UIView.animate(withDuration: 0.3, animations: {() -> Void in self.slideView.center = self.sliderUp })
-            sliderButton.setImage(#imageLiteral(resourceName: "down"), for: .normal)
-            
+//            sliderButton.setImage(#imageLiteral(resourceName: "down"), for: .normal)
+            let transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            UIView.animate(withDuration: 0.3) {
+                self.sliderButton.transform = transform
+            }
         }
         else
         {
             UIView.animate(withDuration: 0.3, animations: { () -> Void in self.slideView.center = self.sliderDown})
-            sliderButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+//            sliderButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+            let transform = CGAffineTransform(rotationAngle: 0)
+            UIView.animate(withDuration: 0.3) {
+                self.sliderButton.transform = transform
+            }
             
         }
         sliderUpIndicator = !sliderUpIndicator
@@ -554,7 +562,10 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         print("touches in viewcontroller")
         UIView.animate(withDuration: 0.2, animations: { () -> Void in self.slideView.center = self.sliderDown})
         sliderUpIndicator = false
-        sliderButton.setImage(#imageLiteral(resourceName: "up"), for: .normal)
+        let transform = CGAffineTransform(rotationAngle: 0)
+        UIView.animate(withDuration: 0.3) {
+            self.sliderButton.transform = transform
+        }
         
     }
     
