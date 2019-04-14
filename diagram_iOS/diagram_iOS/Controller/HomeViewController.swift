@@ -266,24 +266,26 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
             allData.allArrows.append(data.arrowsAndData[arrow]!)
         }
         self.jsonData = try? jsonEncoder.encode(allData)
-        
-        
-        let fileName = "/"+LandingPageViewController.projectName+"/"+LandingPageViewController.projectName+".excelsior"
+        print("Checking old data")
+        print(getURL(for: .ProjectInShared))
+        print(getURL(for: .ApplicationInShared))
+        let fileName = LandingPageViewController.projectName + ".excelsior"
+        print(fileName)
         let file = FileHandling(name: fileName)
         
-        if file.findFile()
+        if file.findFile(in: .ProjectInShared)
         {
-            try? self.oldjSONData = Data(contentsOf: getURL(for: .Documents).appendingPathComponent(fileName), options: .uncachedRead)
+            try? self.oldjSONData = Data(contentsOf: getURL(for: .ProjectInShared).appendingPathComponent(LandingPageViewController.projectName + ".excelsior"), options: .uncachedRead)
             print("Old Data restored")
         }
     }
     
     func load_action()
     {
-        let fileName = "/"+LandingPageViewController.projectName+"/"+LandingPageViewController.projectName+".excelsior"
+        let fileName = LandingPageViewController.projectName+".excelsior"
         let file = FileHandling(name: fileName)
-        if file.findFile() {
-            try? self.jsonData = Data(contentsOf: getURL(for: .Documents).appendingPathComponent(fileName), options: .uncachedRead)
+        if file.findFile(in: .ProjectInShared) {
+            try? self.jsonData = Data(contentsOf: getURL(for: .ProjectInShared).appendingPathComponent(fileName), options: .uncachedRead)
             print("Data encoded")
             let jsonDecoder = JSONDecoder()
             let decodedData = try? jsonDecoder.decode(entireData.self, from: self.jsonData!)
@@ -724,12 +726,12 @@ extension HomeViewController: menuControllerDelegate
         }
         self.jsonData = try? jsonEncoder.encode(allData)
         
-        let path = getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
+//        let path = getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
         let fileName = LandingPageViewController.projectName+".excelsior"
-        if writeFile(containing: String(data: jsonData!, encoding: .utf8)!, to: path, withName: fileName) {
+        if writeFile(containing: String(data: jsonData!, encoding: .utf8)!, to: getURL(for: .ProjectInShared), withName: fileName) {
             self.showToast(message: "Saved Successfully.")
         }
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        print(getURL(for: .Shared))
     }
 
     func saveViewStateAsNew() {
@@ -768,12 +770,12 @@ extension HomeViewController: menuControllerDelegate
             {
                 LandingPageViewController.projectName = alert.textFields!.first!.text!
                 let directory = FileHandling(name: LandingPageViewController.projectName)
-                if directory.createNewProjectDirectory()
+                if directory.createSharedProjectDirectory(), directory.createNewProjectDirectory()
                 {
                     print("Directory successfully created!")
-                    let path = self.getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
+//                    let path = self.getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
                     let fileName = LandingPageViewController.projectName+".excelsior"
-                    if self.writeFile(containing: String(data: self.jsonData!, encoding: .utf8)!, to: path, withName: fileName)
+                    if self.writeFile(containing: String(data: self.jsonData!, encoding: .utf8)!, to: self.getURL(for: .ProjectInShared), withName: fileName)
                     {
                         self.showToast(message: "Saved Successfully")
                     }
@@ -835,5 +837,14 @@ extension HomeViewController: resizeDropzoneDelegate
         dropZone!.addSubview(gridView)
         dropZone.sendSubviewToBack(gridView)
         
+    }
+}
+
+extension String {
+    func encodeUrl() -> String? {
+        return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
+    }
+    func decodeUrl() -> String? {
+        return self.removingPercentEncoding
     }
 }
