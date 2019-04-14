@@ -114,14 +114,14 @@ class ContainerViewController: UIViewController {
     
     func didSelectMenuOption(forMenuOption menuOption: MenuOption){
         switch menuOption{
-        case .Save:
-            ContainerViewController.menuDelegate!.saveViewState()
-        case .SaveAs:
-            ContainerViewController.menuDelegate!.saveViewStateAsNew()
-        case .Screenshot:
-            ContainerViewController.menuDelegate!.takeScreenShot()
-        case .ExportPDF:
-            ContainerViewController.menuDelegate!.exportAsPDF()
+//        case .Save:
+//            ContainerViewController.menuDelegate!.saveViewState()
+//        case .SaveAs:
+//            ContainerViewController.menuDelegate!.saveViewStateAsNew()
+//        case .Screenshot:
+//            ContainerViewController.menuDelegate!.takeScreenShot()
+//        case .ExportPDF:
+//            ContainerViewController.menuDelegate!.exportAsPDF()
         case .SetTimer:
             ContainerViewController.menuDelegate!.setTimerForDebottling()
         case .Debottling:

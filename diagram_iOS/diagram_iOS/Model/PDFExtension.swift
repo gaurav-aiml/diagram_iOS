@@ -62,8 +62,8 @@ extension UIView {
     // Save pdf file in document directory
     func saveViewPdf(data: NSMutableData, name: String) -> String {
         let file = FileHandling(name: "")
-        let docDirectoryPath =  file.buildFullPath(forFileName: name, inDirectory: .Documents)
-        let pdfPath = docDirectoryPath.appendingPathComponent(name+".pdf")
+        let pdfPath = file.getURL(for: .Project).appendingPathComponent(name+".pdf")
+        print(pdfPath)
         if data.write(to: pdfPath, atomically: true) {
             return pdfPath.path
         } else {

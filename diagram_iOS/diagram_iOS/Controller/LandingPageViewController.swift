@@ -12,6 +12,7 @@ class LandingPageViewController: UIViewController {
     
     var stackView = UIStackView()
     static var projectName = ""
+    static var applicationName = "Bottleneck"
     var listController = UITableViewController()
     var projectListTable : UITableView!
     var projectList = [String]()
@@ -70,9 +71,9 @@ class LandingPageViewController: UIViewController {
         stackView.alignment = UIStackView.Alignment.center
         stackView.spacing = 30
         
-        stackView.addArrangedSubview(createButton)
+//        stackView.addArrangedSubview(createButton)
         stackView.addArrangedSubview(loadButton)
-        //stackView.addArrangedSubview(recentsButton)
+//        stackView.addArrangedSubview(recentsButton)
         self.view.addSubview(stackView)
         setupButtonLayout()
         
@@ -95,7 +96,6 @@ class LandingPageViewController: UIViewController {
         listController.tableView.delegate = self
         listController.tableView.dataSource = self
         listController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
-        
     }
     
     
@@ -157,9 +157,11 @@ class LandingPageViewController: UIViewController {
                     let directory = FileHandling(name: LandingPageViewController.projectName)
                     if directory.createNewProjectDirectory()
                     {
-                        print("Directory successfully created!")
-                        let cont = ContainerViewController()
-                        self.present(cont, animated: true)
+                        if directory.createSharedProjectDirectory(){
+                            print("Directory successfully created!")
+                            let cont = ContainerViewController()
+                            self.present(cont, animated: true)
+                        }
                     }
                 }
         }))
@@ -184,10 +186,11 @@ extension LandingPageViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cVC = ContainerViewController()
         LandingPageViewController.projectName = projectList[indexPath.row]
+        let directory = FileHandling(name: LandingPageViewController.projectName)
+        directory.createSharedProjectDirectory()
         dismiss(animated: true) {
             self.present(cVC, animated: true)
         }
-        
     }
 }
 

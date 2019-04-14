@@ -55,7 +55,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         super.viewDidLoad()
         configureScrollView()
         configureNavigationBar()
-        configureSlider()
+        //configureSlider()
         self.scrollView?.delegate = self
         ContainerViewController.menuDelegate = self
         // Do any additional setup after loading the view
@@ -239,7 +239,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         let fileName = "/"+LandingPageViewController.projectName+"/"+LandingPageViewController.projectName+".excelsior"
         let file = FileHandling(name: fileName)
         
-        if file.findFile()
+        if file.findFile(in: .Project)
         {
             try? self.oldjSONData = Data(contentsOf: getURL(for: .Documents).appendingPathComponent(fileName), options: .uncachedRead)
             print("Old Data restored")
@@ -248,10 +248,10 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     
     func load_action()
     {
-        let fileName = "/"+LandingPageViewController.projectName+"/"+LandingPageViewController.projectName+".excelsior"
+        let fileName = "/"+"Process Diagram"+"/"+LandingPageViewController.projectName+"/"+LandingPageViewController.projectName+".excelsior"
         let file = FileHandling(name: fileName)
-        if file.findFile() {
-            try? self.jsonData = Data(contentsOf: getURL(for: .Documents).appendingPathComponent(fileName), options: .uncachedRead)
+        if file.findFile(in: .Shared) {
+            try? self.jsonData = Data(contentsOf: getURL(for: .Shared).appendingPathComponent(fileName), options: .uncachedRead)
             print("Data encoded")
             let jsonDecoder = JSONDecoder()
             let decodedData = try? jsonDecoder.decode(entireData.self, from: self.jsonData!)
@@ -368,27 +368,27 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
     
     @objc func didClickExit(){
         
-        checkForChanges()
+//        checkForChanges()
         
-        if String(data: self.jsonData!, encoding: .utf8) == String(data: self.oldjSONData!, encoding: .utf8)
-        {
+//        if String(data: self.jsonData!, encoding: .utf8) == String(data: self.oldjSONData!, encoding: .utf8)
+//        {
             dismiss(animated: true)
-        }
+//        }
             
-        else
-        {
-            let alert = UIAlertController(title: "Exiting without saving changes!", message: nil, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
-                ContainerViewController.menuDelegate?.saveViewState()
-                self.dismiss(animated: true)
-            }))
-            alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { action in
-                self.dismiss(animated: true)
-            }))
-            
-            self.present(alert, animated: true)
-        }
+//        else
+//        {
+//            let alert = UIAlertController(title: "Exiting without saving changes!", message: nil, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//            alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { action in
+//                ContainerViewController.menuDelegate?.saveViewState()
+//                self.dismiss(animated: true)
+//            }))
+//            alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { action in
+//                self.dismiss(animated: true)
+//            }))
+//
+//            self.present(alert, animated: true)
+//        }
     }
     
     @objc func didPan(sender: UIPanGestureRecognizer)
@@ -520,7 +520,7 @@ class HomeViewController: UIViewController, UIDropInteractionDelegate, UIScrollV
         firstCircle?.isHidden = false
         firstCircle = nil
         print("touches in viewcontroller")
-        UIView.animate(withDuration: 0.2, animations: { () -> Void in self.slideView.center = self.sliderDown})
+//        UIView.animate(withDuration: 0.2, animations: { () -> Void in self.slideView.center = self.sliderDown})
         
     }
     

@@ -13,9 +13,8 @@ class BottleneckFiles {
     var FilesArray = [(String, Int)]()
     
     init() {
-        
-        var DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        DocumentDirURL.appendPathComponent("\(LandingPageViewController.projectName)/")
+        let directory = FileHandling(name: "")
+        var DocumentDirURL = directory.getURL(for: .ProjectInShared)
 //        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("notes.txt")
 //        let fileURL2 = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension("count.txt")
         

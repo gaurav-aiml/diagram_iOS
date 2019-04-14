@@ -178,7 +178,7 @@ extension recordBottleneckViewController : AppFileManipulation, AppFileStatusChe
         let fileName = String(describing: inputProcessView.processID!)
         print(documentsDirectoryURL())
         var text = notesField.text!
-        let path = getURL(for: .Documents).appendingPathComponent(LandingPageViewController.projectName)
+        let path = getURL(for: .ProjectInShared)
         if !writeFile(containing: text, to: path, withName: "\(fileName).notes") {
             print("Error writing notes file to documents")
         }
@@ -191,14 +191,14 @@ extension recordBottleneckViewController : AppFileManipulation, AppFileStatusChe
     
     func alreadyHasData(){
         let fileName = String(describing: inputProcessView.processID!)
-        let fileURL = buildFullPath(forFileName: "\(LandingPageViewController.projectName)/\(fileName).notes", inDirectory: .Documents)
-        let fileURL2 = buildFullPath(forFileName: "\(LandingPageViewController.projectName)/\(fileName).count", inDirectory: .Documents)
+        let fileURL = getURL(for: .ProjectInShared).appendingPathComponent(fileName+".notes")
+        let fileURL2 = getURL(for: .ProjectInShared).appendingPathComponent(fileName+".count")
         
         if exists(file: fileURL){
-            notesField.text = readFile(at: .Documents, withName: "\(LandingPageViewController.projectName)/\(fileName).notes")
+            notesField.text = readFile(at: .ProjectInShared, withName: fileName+".notes")
         }
         if exists(file: fileURL2){
-            let text = readFile(at: .Documents, withName: "\(LandingPageViewController.projectName)/\(fileName).count")
+            let text = readFile(at: .ProjectInShared, withName: fileName+".count")
             let splitText = text.components(separatedBy: "$$")
             if splitText.count == 2{
                 outputField.text = splitText[1]

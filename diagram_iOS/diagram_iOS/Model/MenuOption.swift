@@ -9,10 +9,10 @@
 import UIKit
 
 enum MenuOption: Int, CustomStringConvertible{
-    case Save
-    case SaveAs
-    case Screenshot
-    case ExportPDF
+//    case Save
+//    case SaveAs
+//    case Screenshot
+//    case ExportPDF
     case SetTimer
     case Debottling
     
@@ -20,10 +20,10 @@ enum MenuOption: Int, CustomStringConvertible{
     {
         switch self
         {
-        case .Save: return "Save"
-        case .SaveAs: return "Save As"
-        case .Screenshot: return "Screenshot"
-        case .ExportPDF: return "Export as PDF"
+//        case .Save: return "Save"
+//        case .SaveAs: return "Save As"
+//        case .Screenshot: return "Screenshot"
+//        case .ExportPDF: return "Export as PDF"
         case .SetTimer: return "Set Timer Value"
         case .Debottling: return "Start Debottling"
         }
@@ -31,10 +31,10 @@ enum MenuOption: Int, CustomStringConvertible{
     
     var image: UIImage{
         switch self {
-        case .Save: return UIImage(named: "saveas") ?? UIImage()
-        case .SaveAs: return UIImage(named: "save") ?? UIImage()
-        case .Screenshot: return UIImage(named: "screenshot") ?? UIImage()
-        case .ExportPDF: return UIImage(named: "profile") ?? UIImage()
+//        case .Save: return UIImage(named: "saveas") ?? UIImage()
+//        case .SaveAs: return UIImage(named: "save") ?? UIImage()
+//        case .Screenshot: return UIImage(named: "screenshot") ?? UIImage()
+//        case .ExportPDF: return UIImage(named: "profile") ?? UIImage()
         case .SetTimer: return UIImage(named: "settimer") ?? UIImage()
         case .Debottling: return UIImage(named: "debottling") ?? UIImage()
         }
