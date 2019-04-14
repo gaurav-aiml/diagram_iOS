@@ -182,10 +182,11 @@ extension LandingPageViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cVC = ContainerViewController()
+//        let cVC = ContainerViewController()
+        let temp = TemplateViewController()
         LandingPageViewController.projectName = projectList[indexPath.row]
         dismiss(animated: true) {
-            self.present(cVC, animated: true)
+            self.present(temp, animated: true)
         }
         
     }
