@@ -12,6 +12,7 @@ class LandingPageViewController: UIViewController {
     
     var stackView = UIStackView()
     static var projectName = ""
+    static var applicationName = "Process Diagram"
     var listController = UITableViewController()
     var projectListTable : UITableView!
     var projectList = [String]()
@@ -92,7 +93,7 @@ class LandingPageViewController: UIViewController {
     
     func populateProjectList(){
         let obj = FileHandling(name: "")
-        projectList = obj.listProjects()
+        projectList = obj.listSharedProjects()
         listController.tableView.delegate = self
         listController.tableView.dataSource = self
         listController.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
@@ -155,11 +156,13 @@ class LandingPageViewController: UIViewController {
             {
                 LandingPageViewController.projectName = alert.textFields!.first!.text!
                     let directory = FileHandling(name: LandingPageViewController.projectName)
-                    if directory.createNewProjectDirectory()
+                    if directory.createSharedProjectDirectory()
                     {
+                        if directory.createNewProjectDirectory(){
                             print("Directory successfully created!")
                             let cont = ContainerViewController()
                             self.present(cont, animated: true)
+                        }
                     }
             }
         }))

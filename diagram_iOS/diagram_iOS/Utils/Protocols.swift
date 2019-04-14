@@ -37,6 +37,12 @@ protocol AppDirectoryNames {
     
     func tempDirectoryURL() -> URL
     
+    func sharedDirectoryURL() -> URL?
+    
+    func applicationInSharedDirectoryURL() -> URL?
+    
+    func projectInSharedDirectoryURL() -> URL?
+    
     func getURL(for directory: AppDirectories) -> URL
     
     func buildFullPath(forFileName name: String, inDirectory directory: AppDirectories) -> URL
@@ -61,6 +67,8 @@ protocol AppFileSystemMetaData
 protocol AppFileManipulation : AppDirectoryNames
 {
     func createDirectory(at path: AppDirectories, withName name: String) -> Bool
+    
+    func createSharedDirectory(withName name: String) -> Bool
     
     func writeFile(containing: String, to path: URL, withName name: String) -> Bool
     
